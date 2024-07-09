@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Chat from "./pages/chat/Chat"
 
+import './shared/css/WebChat.css';
+
 function WebChat() {
   return (
     <div className="webchat">

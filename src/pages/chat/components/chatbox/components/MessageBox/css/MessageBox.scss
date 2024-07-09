@@ -1,3 +1,10 @@
 .message-box{
     padding: 30px;
+    height: 100%;
+}
+
+.chatbox{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
