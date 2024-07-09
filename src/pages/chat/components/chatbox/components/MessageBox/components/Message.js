@@ -1,10 +1,17 @@
 import React from 'react';
 
-const Message = ({ text, sender }) => {
+const Message = ({ text, sender, time }) => {
+    if (sender === 'me') {
+        sender = 'message-sender-me';
+    } else {
+        sender = 'message-sender-other';
+    }
     return (
-        <div className="message">
-            <span className="sender">{sender}</span>
-            <p className="text">{text}</p>
+        <div className={`message ${sender}`}>
+            <div className={`message-bubble`}>
+                <p>{text}</p>
+            </div>
+            <div className="message-time">{time}</div>
         </div>
     );
 };

@@ -4,29 +4,52 @@
     padding: 10px;
     background-color: #f2f2f2;
     border-radius: 5px;
+    border-top-left-radius: 0px;
     margin-bottom: 10px;
-
-    .avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
+    width: fit-content;
+    max-width: 70%;
+    position: relative;
+    // make the triangle on message on top of the message
+    &:before {
+        content: '';
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid #f2f2f2;
+        left: -10px;
+        top: 0px;
     }
+    .message-time{
+        font-size: 12px;
+        color: #666;
+        margin-left: 10px;
+    
+    }
+}
 
-    .content {
-        flex: 1;
-        .author {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+.message.message-sender-me+.message.message-sender-me, .message.message-sender-other+.message.message-sender-other {
+    margin-top: -6px;
+    border-radius: 5px;
+    &:before {
+        border: transparent;
+    }
+}
 
-        .text {
-            color: #333;
-        }
 
-        .timestamp {
-            font-size: 12px;
-            color: #999;
-        }
+
+.message.message-sender-me {
+    border-radius: 5px;
+    border-top-right-radius: 0px;
+    margin-left: auto;
+        &:before {
+            border-bottom: 0;
+            left: auto;
+            right: -10px;
+            border-left: 10px solid #f2f2f2;
+            border-top: 10px solid #f2f2f2;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid transparent;
+
     }
 }

@@ -8,9 +8,12 @@ import "./css/MessageBox.css";
 const MessageBox = () => {
     return (
         <div className="message-box">
-            <Message text="Hello, how can I help you today?" sender="bot" />
-            <Message text="I need help with my order" sender="user" />
-            <Message text="Sure, what is your order number?" sender="bot" />
+            <Message text="Hello!" sender="me" time="10:00" />
+            <Message text="Hi!" sender="other" time="10:01" />
+            <Message text="How are you?" sender="me" time="10:02" />
+            <Message text="I'm good, thanks!" sender="other" time="10:03" />
+            <Message text="I'm good, thanks!" sender="other" time="10:04" />
+            <Message text="I'm good, thanks!" sender="other" time="10:05" />
         </div>
     );
 };
