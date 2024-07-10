@@ -1,6 +1,8 @@
 import React from 'react';
 
-const Message = ({ text, sender, time }) => {
+import Chevron from '../../../../../../../shared/assets/chevron-up.svg';
+
+const Message = ({ text, sender, time, id }) => {
     if (sender === 'me') {
         sender = 'message-sender-me';
     } else {
@@ -12,6 +14,9 @@ const Message = ({ text, sender, time }) => {
                 <p>{text}</p>
             </div>
             <div className="message-time">{time}</div>
+            <div className='more-options'>
+                <img src={Chevron} alt='More options' />
+            </div>
         </div>
     );
 };

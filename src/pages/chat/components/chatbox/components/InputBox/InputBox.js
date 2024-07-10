@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 
 import './css/InputBox.css';
 
-const InputBox = () => {
+import X from '../../../../../../shared/assets/x.svg';
+
+const InputBox = (isReplyingTo) => {
+    isReplyingTo = isReplyingTo.isReplyingTo;
     const [inputValue, setInputValue] = useState('');
 
     const handleChange = (e) => {
@@ -18,13 +21,26 @@ const InputBox = () => {
 
     return (
         <form onSubmit={handleSubmit} className='inputbox'>
-            <input
-                type="text"
-                value={inputValue}
-                onChange={handleChange}
-                placeholder="Type your message..."
-            />
-            <button type="submit">Send</button>
+            {isReplyingTo && (
+            <div className='replybox'>
+                <div className='replybox-message'>
+                    <div className='replybox-user'>{isReplyingTo.username}</div>
+                    <div className='replybox-message-content'>{isReplyingTo.message}</div>
+                </div>
+                <button type='button'>
+                    <img src={X} alt='Close' />
+                </button>
+            </div>
+            )}
+            <div className='inputs'>
+                <input
+                    type="text"
+                    value={inputValue}
+                    onChange={handleChange}
+                    placeholder="Type your message..."
+                />
+                <button type="submit">Send</button>
+            </div>
         </form>
     );
 };
