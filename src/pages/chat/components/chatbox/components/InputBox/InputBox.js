@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './css/InputBox.css';
 
-import X from '../../../../../../shared/assets/x.svg';
+import X from '../../../../../../shared/assets/svg/x.svg';
 
 const InputBox = (isReplyingTo) => {
     isReplyingTo = isReplyingTo.isReplyingTo;

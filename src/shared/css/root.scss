@@ -1,3 +1,12 @@
+$primary-color: #128C7E;
+$secondary-color: #25D366;
+$background-color: #EDEDED;
+$text-color: #000000;
+$background-dark: #0b1316;
+$background-dark-accent: #121b22;
+$background-light: #212e36;
+$button-color: #279580;
+
 *{
     margin: 0;
     padding: 0;
@@ -7,8 +16,12 @@
 body{
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
+    background-color: $background-color;
+    color: $text-color;
 }
 
 #root{
     height: 100vh;
 }
+
+/* Add your custom styles here */

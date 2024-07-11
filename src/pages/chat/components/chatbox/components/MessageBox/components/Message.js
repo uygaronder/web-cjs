@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Chevron from '../../../../../../../shared/assets/chevron-up.svg';
+import Chevron from '../../../../../../../shared/assets/svg/chevron-up.svg';
 
 const Message = ({ text, sender, time, id }) => {
     if (sender === 'me') {

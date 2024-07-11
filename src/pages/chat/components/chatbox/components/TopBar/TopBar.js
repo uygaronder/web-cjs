@@ -2,7 +2,7 @@ import React from 'react';
 
 import "./css/TopBar.css";
 
-import More from "../../../../../../shared/assets/more-vertical.svg";
+import More from "../../../../../../shared/assets/svg/more-vertical.svg";
 
 const TopBar = () => {
     return (
