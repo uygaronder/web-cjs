@@ -1,27 +1,77 @@
-$primary-color: #128C7E;
-$secondary-color: #25D366;
-$background-color: #EDEDED;
-$text-color: #000000;
-$background-dark: #0b1316;
-$background-dark-accent: #121b22;
-$background-light: #212e36;
-$button-color: #279580;
+:root {
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    --padding: 10px;
+    --padding-small: 5px;
+    --padding-large: 20px;
+    --border-radius: 5px;
+
+    --font-family: 'Roboto', sans-serif;
+    --font-small: 12px;
+    --font-medium: 14px;
+    --font-large: 16px;
+
+    //////////  COLORS \\\\\\\\\\ 
+    
+    // Background colors
+    --background-color: #1e1e1e; // Dark background
+    --background-dark: #121212;
+    --background-light: #2e2e2e;
+    --background-light-low-opacity: #2e2e2e11; // Low opacity background
+
+    // Text colors
+    --text-color: #e0e0e0; // Light text for readability
+    --text-color-muted: #aaaaaa; // Muted text for less emphasis
+
+    // Accent colors
+    --accent-color: #56c8d8; // Accent color for highlights
+    --accent-color-dark: #2b8694;
+    --accent-color-light: #85e0f0;
+    --accent-color-muted: #a0d7e022;
+
+    // Border colors
+    --border-color: #3a3a3a; // Subtle border color
+    --border-color-light: #4a4a4a;
+
+    // Button colors
+    --button-background: #0088cc;
+    --button-hover: #006699;
+    --button-text: #ffffff;
+
+    // Input colors
+    --input-background: #2e2e2e;
+    --input-border: #4a4a4a;
+    --input-text: #e0e0e0;
+
+    // Notification colors
+    --notification-background: #ff3b30; // Red for notifications
+    --notification-text: #ffffff;
+
+    // Link colors
+    --link-color: #0088cc;
+    --link-hover: #006699;
+
+    --svg-filter: brightness(0) invert(1);
+}
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    list-style: none;
 }
 
 body{
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-family);
     min-height: 100vh;
-    background-color: $background-color;
-    color: $text-color;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+a{
+    text-decoration: none;
+    color: var(--text-color);
 }
 
 #root{
     height: 100vh;
 }
-
-/* Add your custom styles here */

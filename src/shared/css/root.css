@@ -1,12 +1,55 @@
+:root {
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  --padding: 10px;
+  --padding-small: 5px;
+  --padding-large: 20px;
+  --border-radius: 5px;
+  --font-family: "Roboto", sans-serif;
+  --font-small: 12px;
+  --font-medium: 14px;
+  --font-large: 16px;
+  --background-color: #1e1e1e;
+  --background-dark: #121212;
+  --background-light: #2e2e2e;
+  --background-light-low-opacity: #2e2e2e11;
+  --text-color: #e0e0e0;
+  --text-color-muted: #aaaaaa;
+  --accent-color: #56c8d8;
+  --accent-color-dark: #2b8694;
+  --accent-color-light: #85e0f0;
+  --accent-color-muted: #a0d7e022;
+  --border-color: #3a3a3a;
+  --border-color-light: #4a4a4a;
+  --button-background: #0088cc;
+  --button-hover: #006699;
+  --button-text: #ffffff;
+  --input-background: #2e2e2e;
+  --input-border: #4a4a4a;
+  --input-text: #e0e0e0;
+  --notification-background: #ff3b30;
+  --notification-text: #ffffff;
+  --link-color: #0088cc;
+  --link-hover: #006699;
+  --svg-filter: brightness(0) invert(1);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  list-style: none;
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--font-family);
   min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color);
 }
 
 #root {
