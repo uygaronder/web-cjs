@@ -1,16 +1,17 @@
 .sidebar{
-    width: 250px;
+    min-width: 250px;
+    width: 20%;
     height: 100%;
     background-color: var(--background-dark);
     z-index: 100;
     transition: 0.5s;
     overflow-y: auto;
-    padding-top: 60px;
+    border-right: 1px solid var(--border-color);
     .sidebar-upper{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 20px;
+        padding: var(--padding) var(--padding-large);
         .sidebar-dropdown-menu-container{
             position: relative;
             img{
@@ -23,6 +24,7 @@
                 border-radius: 50%;
             }
             .sidebar-dropdown-menu{
+                display: none;
                 position: absolute;
                 background-color: var(--background-light);
                 border-radius: 5px;
@@ -33,6 +35,9 @@
                 width: 200px;
                 box-shadow: var(--box-shadow);
                 z-index: 100;
+                &.active{
+                    display: block;
+                }
                 button{
                     background-color: transparent;
                     border: none;
@@ -42,6 +47,41 @@
                     text-align: left;
                     &:hover{
                         background-color: var(--background-light);
+                    }
+                }
+            }
+        }
+    }
+    .sidebar-body{
+        padding-top: var(--padding-small);
+        .sidebar-chats{
+            display: flex;
+            flex-direction: column;
+            .sidebar-chat{
+                display: flex;
+                align-items: center;
+                padding: var(--padding) var(--padding-large);
+                cursor: pointer;
+                &:hover{
+                    background-color: var(--background-light-low-opacity);
+                }
+                .chat-avatar{
+                    padding-right: var(--padding);
+                    img{
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                    }
+                }
+                .chat-details{
+                    margin-left: var(--margin);
+                    .chat-name{
+                        color: var(--text-color);
+                        font-size: var(--font-large);
+                    }
+                    .chat-message{
+                        color: var(--text-color-muted);
+                        font-size: var(--font-small);
                     }
                 }
             }

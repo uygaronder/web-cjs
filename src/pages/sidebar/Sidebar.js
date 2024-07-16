@@ -20,10 +20,19 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="sidebar-body">
-        <ul>
-          <li>
-            <Link to="/chat">.</Link>
-          </li>
+        <ul className="sidebar-chats">
+          <Link to="/chat" className="sidebar-chat">
+            <div className="chat-avatar">
+              <img
+                src="https://placehold.co/100x100"
+                alt="Avatar"
+              />
+            </div>
+            <div className="chat-details">
+              <div className="chat-name">John Doe</div>
+              <div className="chat-message">Hello, how are you?</div>
+            </div>
+          </Link>
         </ul>
       </div>
     </div>

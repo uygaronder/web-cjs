@@ -1,17 +1,18 @@
 .sidebar {
-  width: 250px;
+  min-width: 250px;
+  width: 20%;
   height: 100%;
   background-color: var(--background-dark);
   z-index: 100;
   transition: 0.5s;
   overflow-y: auto;
-  padding-top: 60px;
+  border-right: 1px solid var(--border-color);
 }
 .sidebar .sidebar-upper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: var(--padding) var(--padding-large);
 }
 .sidebar .sidebar-upper .sidebar-dropdown-menu-container {
   position: relative;
@@ -26,6 +27,7 @@
   border-radius: 50%;
 }
 .sidebar .sidebar-upper .sidebar-dropdown-menu-container .sidebar-dropdown-menu {
+  display: none;
   position: absolute;
   background-color: var(--background-light);
   border-radius: 5px;
@@ -37,6 +39,9 @@
   box-shadow: var(--box-shadow);
   z-index: 100;
 }
+.sidebar .sidebar-upper .sidebar-dropdown-menu-container .sidebar-dropdown-menu.active {
+  display: block;
+}
 .sidebar .sidebar-upper .sidebar-dropdown-menu-container .sidebar-dropdown-menu button {
   background-color: transparent;
   border: none;
@@ -47,4 +52,39 @@
 }
 .sidebar .sidebar-upper .sidebar-dropdown-menu-container .sidebar-dropdown-menu button:hover {
   background-color: var(--background-light);
+}
+.sidebar .sidebar-body {
+  padding-top: var(--padding-small);
+}
+.sidebar .sidebar-body .sidebar-chats {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar .sidebar-body .sidebar-chats .sidebar-chat {
+  display: flex;
+  align-items: center;
+  padding: var(--padding) var(--padding-large);
+  cursor: pointer;
+}
+.sidebar .sidebar-body .sidebar-chats .sidebar-chat:hover {
+  background-color: var(--background-light-low-opacity);
+}
+.sidebar .sidebar-body .sidebar-chats .sidebar-chat .chat-avatar {
+  padding-right: var(--padding);
+}
+.sidebar .sidebar-body .sidebar-chats .sidebar-chat .chat-avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.sidebar .sidebar-body .sidebar-chats .sidebar-chat .chat-details {
+  margin-left: var(--margin);
+}
+.sidebar .sidebar-body .sidebar-chats .sidebar-chat .chat-details .chat-name {
+  color: var(--text-color);
+  font-size: var(--font-large);
+}
+.sidebar .sidebar-body .sidebar-chats .sidebar-chat .chat-details .chat-message {
+  color: var(--text-color-muted);
+  font-size: var(--font-small);
 }/*# sourceMappingURL=Sidebar.css.map */
