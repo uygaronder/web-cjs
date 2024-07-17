@@ -13,8 +13,8 @@ function WebChat() {
     <div className="webchat">
       <Sidebar />
       <Routes>
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/" element={<Navigate to="/chat" />} />
+        <Route path="chat" element={<Chat />} />
+        <Route path="*" element={<Navigate to="chat" />} />
       </Routes>
     </div>
   );

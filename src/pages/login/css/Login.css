@@ -1,0 +1,127 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.login-page button {
+  background-color: transparent;
+  border: none;
+  color: var(--link-color);
+  transition: 0.1s ease;
+  font-size: var(--font-large);
+  margin: 5px 0;
+  cursor: pointer;
+}
+.login-page button:hover {
+  color: var(--link-hover);
+}
+.login-page p {
+  color: var(--text-color-muted);
+  font-size: var(--font-large);
+}
+.login-page .login-form-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: calc(var(--padding-large) * 1.5);
+  align-items: center;
+}
+.login-page .login-form-container * {
+  margin-bottom: var(--padding);
+}
+.login-page .login-form-container *:first-child {
+  margin-bottom: calc(var(--padding-large) * 1.5);
+  font-size: calc(var(--font-large) * 2.5);
+}
+.login-page .login-form-container *:last-child {
+  margin-bottom: 0;
+}
+.login-page .login-form-container input {
+  background-color: var(--input-background);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  padding: var(--padding);
+  border-radius: 5px;
+  outline: none;
+  font-family: var(--font-family);
+  font-size: var(--font-large);
+}
+.login-page .login-form-container button {
+  background-color: var(--button-background);
+  color: var(--button-text);
+  padding: var(--padding);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-large);
+  transition: 0.1s ease;
+  width: 100%;
+  margin-top: var(--padding);
+}
+.login-page .login-form-container button:hover {
+  background-color: var(--button-hover);
+}
+.login-page .login-form-container .keep-me-signed-in {
+  display: flex;
+}
+.login-page .login-form-container .keep-me-signed-in input {
+  margin: 0;
+  margin-right: var(--padding-small);
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+.login-page .register-prompt {
+  color: var(--text-color-muted);
+  font-size: var(--font-large);
+  text-align: center;
+}
+.login-page .register-prompt div:last-child {
+  margin-top: var(--padding-large);
+}
+.login-page .login-alternatives-container {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+}
+.login-page .login-alternatives-container .login-alternatives {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: var(--padding);
+}
+.login-page .login-alternatives-container .login-alternatives p {
+  color: var(--text-color-muted);
+  font-size: var(--font-large);
+}
+.login-page .login-alternatives-container .login-alternatives .login-alternatives-icons {
+  display: flex;
+  margin: 10px 0;
+}
+.login-page .login-alternatives-container .login-alternatives .login-alternatives-icons img {
+  width: 40px;
+  padding-right: var(--padding);
+  filter: var(--svg-filter);
+  opacity: 0.7;
+  cursor: pointer;
+  transition: 0.1s ease;
+}
+.login-page .login-alternatives-container .login-alternatives .login-alternatives-icons img:hover {
+  opacity: 1;
+}
+.login-page .login-alternatives-container .login-alternatives .login-alternatives-icons span {
+  color: var(--text-color);
+  font-size: var(--font-large);
+}
+.login-page .login-alternatives-container .divider {
+  width: 1px;
+  height: 100%;
+  background-color: var(--border-color);
+}
+.login-page .login-alternatives-container .anonymous-login {
+  margin-right: var(--padding);
+}
+.login-page .login-alternatives-container .anonymous-login button {
+  margin-top: var(--padding-large);
+}/*# sourceMappingURL=Login.css.map */

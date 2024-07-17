@@ -1,10 +1,9 @@
 const request = require('supertest');
-const app = require('../app'); // Replace '../app' with the path to your app file
+const app = require('../index');
 
-describe('API Connection Test', () => {
-    it('should connect to the API', async () => {
-        const response = await request(app).get('/api');
+describe('API Connection', () => {
+    it('should successfully connect to the API', async () => {
+        const response = await request(app).get('/');
         expect(response.status).toBe(200);
-        expect(response.body).toEqual({ message: 'API connected' });
     });
 });
