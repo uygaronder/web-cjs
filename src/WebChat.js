@@ -4,6 +4,10 @@ import Sidebar from "./pages/sidebar/Sidebar"
 
 import './shared/css/WebChat.css';
 
+import { pingServer } from './utility/connect';
+
+pingServer();
+
 function WebChat() {
   return (
     <div className="webchat">

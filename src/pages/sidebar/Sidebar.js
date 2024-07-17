@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./css/Sidebar.css";
 
 import Menu from "../../shared/assets/svg/menu.svg";
+import Search from "../../shared/assets/svg/search.svg";
 
 const Sidebar = () => {
   return (
@@ -17,6 +18,10 @@ const Sidebar = () => {
                     </li>
                 </ul>
             </div>
+        </div>
+        <div className="sidebar-search-bar">
+          <img src={Search} alt="Search" />
+          <input type="text" placeholder="Search" />
         </div>
       </div>
       <div className="sidebar-body">

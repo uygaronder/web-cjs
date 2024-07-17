@@ -53,6 +53,36 @@
 .sidebar .sidebar-upper .sidebar-dropdown-menu-container .sidebar-dropdown-menu button:hover {
   background-color: var(--background-light);
 }
+.sidebar .sidebar-upper .sidebar-search-bar {
+  display: flex;
+  align-items: center;
+  background-color: var(--background-light);
+  padding: var(--padding-small) var(--padding);
+  border-radius: 30px;
+  cursor: text;
+  border: 1px solid var(--background-light);
+  transition: 0.1s ease;
+  width: 100%;
+}
+.sidebar .sidebar-upper .sidebar-search-bar:hover {
+  border: 1px solid var(--border-color-light);
+}
+.sidebar .sidebar-upper .sidebar-search-bar input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-color);
+  width: 100%;
+  padding: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-medium);
+}
+.sidebar .sidebar-upper .sidebar-search-bar img {
+  filter: var(--svg-filter);
+  opacity: 0.3;
+  padding: var(--padding-small);
+  padding-right: var(--padding);
+}
 .sidebar .sidebar-body {
   padding-top: var(--padding-small);
 }

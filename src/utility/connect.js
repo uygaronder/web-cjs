@@ -1,5 +1,6 @@
-export const fetchData = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/v1/ping`)
+export const pingServer = async () => {
+    console.log(process.env.REACT_APP_API_URL);
+    await fetch(`${process.env.REACT_APP_API_URL}/api/ping`)
         .then(response => response.json())
         .then(data => {
             console.log(data);
