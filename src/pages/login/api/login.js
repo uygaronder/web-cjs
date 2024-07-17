@@ -1,6 +1,6 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const login = async (email, password) => {
+export const loginFunc = async (email, password) => {
     const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
@@ -15,7 +15,7 @@ export const login = async (email, password) => {
     return response.json();
 }
 
-export const register = async (email, username, password) => {
+export const registerFunc = async (email, username, password) => {
     const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
@@ -31,7 +31,7 @@ export const register = async (email, username, password) => {
     return response.json();
 }
 
-export const anonymousLogin = async (username) => {
+export const anonymousLoginFunc = async (username, keepLoggedIn) => {
     const response = await fetch(`${API_URL}/auth/anonymous`, {
         method: 'POST',
         headers: {
@@ -39,13 +39,14 @@ export const anonymousLogin = async (username) => {
         },
         body: JSON.stringify({
             username,
+            keepLoggedIn,
         }),
     });
 
     return response.json();
 }
 
-export const googleLogin = async () => {
+export const googleLoginFunc = async () => {
     const response = await fetch(`${API_URL}/auth/google`, {
         method: 'POST',
         headers: {
