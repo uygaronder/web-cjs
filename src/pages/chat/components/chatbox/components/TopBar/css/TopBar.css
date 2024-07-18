@@ -5,6 +5,7 @@
   padding: var(--padding-small) var(--padding);
   background-color: var(--background-dark);
   min-height: 60px;
+  border-bottom: 1px solid var(--background-dark);
 }
 .top-bar .top-bar-info {
   display: flex;

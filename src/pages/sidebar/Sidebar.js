@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./css/Sidebar.css";
 
 import Menu from "../../shared/assets/svg/menu.svg";
+import NewChat from "../../shared/assets/svg/new-chat.svg";
 import Search from "../../shared/assets/svg/search.svg";
 
 const Sidebar = () => {
@@ -17,7 +18,9 @@ const Sidebar = () => {
         <div className="sidebar-avatar">
           <img src="https://placehold.co/100x100" alt="Avatar" />
         </div>
-        <div className="sidebar-menu-buttons">
+        <div className="sidebar-header-buttons">
+          <img src={NewChat} alt="NewChat" />
+          <img src={Menu} alt="Menu" />
         </div>
       </div>
       <div className="sidebar-upper">

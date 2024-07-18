@@ -41,12 +41,13 @@
 }
 .sidebar .sidebar-header .sidebar-header-buttons img {
   filter: var(--svg-filter);
-  padding: var(--padding);
+  padding: var(--padding-small);
   cursor: pointer;
+  opacity: 0.7;
+  transition: 0.1s ease;
 }
 .sidebar .sidebar-header .sidebar-header-buttons img:hover {
-  background-color: var(--background-light-low-opacity);
-  border-radius: 50%;
+  opacity: 0.9;
 }
 .sidebar .sidebar-upper {
   display: flex;
