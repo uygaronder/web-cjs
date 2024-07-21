@@ -5,6 +5,7 @@ import Google from '../../shared/assets/svg/google.svg';
 
 import { loginFunc, registerFunc, anonymousLoginFunc, googleLoginFunc } from './api/login';
 
+
 function Login() {
     const [register, setRegister] = useState(false);
     const [anonymous, setAnonymous] = useState(true);
@@ -14,6 +15,8 @@ function Login() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [keepSignedIn, setKeepSignedIn] = useState(false);
+
+    const loginButton = React.createRef();
 
     const handleRegister = () => {
         if (password !== confirmPassword) {
@@ -46,13 +49,17 @@ function Login() {
 
 
     const handleAnonymousLogin = () => {
+        buttonLoading();
         anonymousLoginFunc(username, keepSignedIn)
             .then(data => {
                 console.log(data);
+                localStorage.setItem('user', JSON.stringify(data));
+                window.location.href = '/c';
             })
             .catch(error => {
                 console.error(error);
             });
+            
         console.log('Logging in anonymously...');
     };
 
@@ -60,6 +67,24 @@ function Login() {
         googleLoginFunc()
         console.log('Logging in with Google...');
     };
+
+    const buttonLoading = () => {
+        const spinnerSpan = document.createElement('span');
+        spinnerSpan.classList.add('buttonSpinner');
+
+        const currentText = loginButton.current.innerText;
+
+        loginButton.current.innerText = 'Loading';
+        loginButton.current.disabled = true;
+        loginButton.current.classList.add('buttonLoading');
+        loginButton.current.appendChild(spinnerSpan);
+
+        setTimeout(() => {
+            loginButton.current.innerText = currentText;
+            loginButton.current.disabled = false;
+            loginButton.current.classList.remove('buttonLoading');
+        }, 5000);
+    }
 
     return (
         <div className='login-page'>
@@ -94,7 +119,7 @@ function Login() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
                 )}
-                <button onClick={(!anonymous ? register ? handleRegister : handleLogin : handleAnonymousLogin)}>
+                <button ref={loginButton} onClick={(!anonymous ? register ? handleRegister : handleLogin : handleAnonymousLogin)}>
                     {register ? 'Register' : 'Login'}
                 </button>
                 <div className='keep-me-signed-in'>

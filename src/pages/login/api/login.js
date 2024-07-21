@@ -40,6 +40,7 @@ export const anonymousLoginFunc = async (username, keepLoggedIn) => {
         body: JSON.stringify({
             username,
             keepLoggedIn,
+            anonymous: true,
         }),
     });
 
