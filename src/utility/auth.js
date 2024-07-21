@@ -1,3 +1,4 @@
+
 // generate protected route for user
 
 import React from 'react';
@@ -9,17 +10,14 @@ const useAuth = () => {
     return { user };
 };
 
-const AuthProvider = ({ component: Component, ...rest }) => {
+const AuthRoute = ({ element, ...rest }) => {
     const { user } = useAuth();
-    console.log(user);
-    return (
-        <Route
-        {...rest}
-        render={(props) =>
-            user ? <Component {...props} /> : <Navigate to="/login" />
-        }
-        />
-    );
-    };
+    return user ? element : <Navigate to="/a/login" />;
+};
 
-export default AuthProvider;
+export const Auth = ({ children }) => {
+    console.log('Auth ', children);
+    return (
+        <AuthRoute element={children} />
+    );
+};

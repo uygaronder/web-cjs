@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 
-import { AuthProvider } from './utility/auth';
+import { Auth } from './utility/auth';
 
 import "./shared/css/root.css"
 
@@ -15,7 +15,7 @@ root.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path="c/*" element={<AuthProvider><WebChat /></AuthProvider>} />
+        <Route path="c/*" element={<Auth><WebChat /></Auth>} />
         <Route path="a/*" element={<Login />} />
       </Routes>
     </Router>
