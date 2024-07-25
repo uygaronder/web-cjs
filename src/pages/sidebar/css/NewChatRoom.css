@@ -1,1 +1,44 @@
-/*# sourceMappingURL=NewChatRoom.css.map */
+.newChatContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: var(--padding);
+  background-color: var(--background-dark);
+  z-index: 100;
+  transition: 0.5s;
+  left: -100%;
+}
+.newChatContainer .newChatRoomUpperButtons {
+  padding-bottom: var(--padding-large);
+  display: flex;
+  justify-content: space-between;
+}
+.newChatContainer .newChatRoomUpperButtons img {
+  filter: var(--svg-filter);
+  padding: var(--padding-small);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.1s ease;
+}
+.newChatContainer .newChatRoomUpperButtons img:hover {
+  opacity: 0.9;
+}
+.newChatContainer .newChatRoomUpperButtons .backButton img {
+  transform: rotate(-90deg);
+}
+.newChatContainer input {
+  width: 100%;
+  padding: var(--padding);
+  border: none;
+  border-radius: 10px;
+  background-color: var(--background-light);
+  color: var(--text-color);
+  font-size: var(--font-medium);
+  outline: none;
+}
+
+.newChatContainerActive {
+  left: 0;
+}/*# sourceMappingURL=NewChatRoom.css.map */

@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 
 import '../css/NewChatRoom.css';
 
-const NewChatRoom = () => {
+import ChevronUp from '../../../shared/assets/svg/chevron-up.svg';
+import CreateRoom from '../../../shared/assets/svg/plus.svg';
+
+const NewChatRoom = ( {closePrompt} ) => {
     const [chatName, setChatName] = useState('');
 
     const handleInputChange = (e) => {
@@ -17,18 +20,28 @@ const NewChatRoom = () => {
         setChatName('');
     };
 
+    //closePrompt();  // closePrompt is a function passed as a prop from Sidebar.js
+    
+    {/* already wrapped in upper component */}
     return (
-        <div>
-            <div>
-                <span className='backButton'></span>
-                <input
-                    type="text"
-                    placeholder="Enter chat room name"
-                    value={chatName}
-                    onChange={handleInputChange}
-                />
-            </div>
+        <>
+        <div className='newChatRoomUpperButtons'>
+            <span className='backButton' onClick={closePrompt}>
+                <img src={ChevronUp} alt='Back' />
+            </span>
+            <span className='createRoomButton' onClick={handleSubmit}>
+                <img src={CreateRoom} alt='Create' />
+            </span>
         </div>
+        <div>
+            <input
+                type="text"
+                placeholder="Enter chat room name"
+                value={chatName}
+                onChange={handleInputChange}
+            />
+        </div>
+        </>
     );
 };
 

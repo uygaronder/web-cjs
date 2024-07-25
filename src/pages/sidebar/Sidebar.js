@@ -9,19 +9,34 @@ import NewChat from "../../shared/assets/svg/new-chat.svg";
 import Search from "../../shared/assets/svg/search.svg";
 
 const Sidebar = () => {
+  const newChatContainerRef = React.createRef();
   const inputRef = React.createRef();
   const handleSearchBarClick = () => {
     inputRef.current.focus();
   };
 
+  const handleNewChatPrompt = () => {
+    console.log(newChatContainerRef.current);
+    newChatContainerRef.current.className = "newChatContainer newChatContainerActive";
+  };
+
+  const closePrompt = () => {
+    console.log(newChatContainerRef.current);
+    console.log(newChatContainerRef.current.className);
+    newChatContainerRef.current.className = "newChatContainer";
+  };
+
   return (
     <div className="sidebar">
+      <div className="newChatContainer" ref={newChatContainerRef}>
+        <NewChatRoom closePrompt={closePrompt} />
+      </div>
       <div className="sidebar-header">
         <div className="sidebar-avatar">
           <img src="https://placehold.co/100x100" alt="Avatar" />
         </div>
         <div className="sidebar-header-buttons">
-          <img src={NewChat} alt="NewChat" onClick={() => {console.log(123)}}/>
+          <img src={NewChat} alt="NewChat" onClick={() => handleNewChatPrompt()}/>
           <img src={Menu} alt="Menu" />
         </div>
       </div>
