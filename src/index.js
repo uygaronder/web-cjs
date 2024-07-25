@@ -17,6 +17,7 @@ root.render(
       <Routes>
         <Route path="c/*" element={<Auth><WebChat /></Auth>} />
         <Route path="a/*" element={<Login />} />
+        <Route path="*" element={<Login />} />
       </Routes>
     </Router>
   </React.StrictMode>
