@@ -21,8 +21,6 @@ const Sidebar = () => {
   };
 
   const closePrompt = () => {
-    console.log(newChatContainerRef.current);
-    console.log(newChatContainerRef.current.className);
     newChatContainerRef.current.className = "newChatContainer";
   };
 
