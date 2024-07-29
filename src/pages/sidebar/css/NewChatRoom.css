@@ -9,6 +9,7 @@
   z-index: 100;
   transition: 0.5s;
   left: -100%;
+  border-right: 1px solid var(--background-light);
 }
 .newChatContainer .newChatRoomUpperButtons {
   padding-bottom: var(--padding-large);
