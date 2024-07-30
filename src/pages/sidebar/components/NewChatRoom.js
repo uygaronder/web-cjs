@@ -41,6 +41,7 @@ const NewChatRoom = ( {closePrompt} ) => {
                 onChange={handleInputChange}
             />
         </div>
+        <span className='verticalDivider'></span>
         </>
     );
 };

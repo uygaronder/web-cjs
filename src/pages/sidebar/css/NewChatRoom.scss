@@ -40,6 +40,14 @@
         font-size: var(--font-medium);
         outline: none;
     }
+    .verticalDivider{
+        display: block;
+        height: 1px;
+        width: 100%;
+        opacity: 0.9;
+        background-color: var(--background-light);
+        margin: var(--padding) 0;
+    }
 }
 .newChatContainerActive{
     left: 0;
