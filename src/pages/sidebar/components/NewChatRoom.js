@@ -5,6 +5,8 @@ import '../css/NewChatRoom.css';
 import ChevronUp from '../../../shared/assets/svg/chevron-up.svg';
 import CreateRoom from '../../../shared/assets/svg/plus.svg';
 
+import { createChatroom } from '../../../shared/api/chat.api';
+
 const NewChatRoom = ( {closePrompt} ) => {
     const [chatName, setChatName] = useState('');
 
@@ -15,7 +17,7 @@ const NewChatRoom = ( {closePrompt} ) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Add logic to create a new chat room with the chatName
-        console.log(`Creating new chat room: ${chatName}`);
+
         // Reset the input field
         setChatName('');
     };
@@ -25,23 +27,23 @@ const NewChatRoom = ( {closePrompt} ) => {
     {/* already wrapped in upper component */}
     return (
         <>
-        <div className='newChatRoomUpperButtons'>
-            <span className='backButton' onClick={closePrompt}>
-                <img src={ChevronUp} alt='Back' />
-            </span>
-            <span className='createRoomButton' onClick={handleSubmit}>
-                <img src={CreateRoom} alt='Create' />
-            </span>
-        </div>
-        <div>
-            <input
-                type="text"
-                placeholder="Enter chat room name"
-                value={chatName}
-                onChange={handleInputChange}
-            />
-        </div>
-        <span className='verticalDivider'></span>
+            <div className='newChatRoomUpperButtons'>
+                <span className='backButton' onClick={closePrompt}>
+                    <img src={ChevronUp} alt='Back' />
+                </span>
+                <span className='createRoomButton' onClick={handleSubmit}>
+                    <img src={CreateRoom} alt='Create' />
+                </span>
+            </div>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Enter chat room name"
+                    value={chatName}
+                    onChange={handleInputChange}
+                />
+            </div>
+            <span className='verticalDivider'></span>
         </>
     );
 };
