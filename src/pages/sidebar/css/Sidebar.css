@@ -120,4 +120,18 @@
 .sidebar .sidebar-body .sidebar-chats .sidebar-chat .chat-details .chat-message {
   color: var(--text-color-muted);
   font-size: var(--font-small);
+}
+.sidebar .sidebar-body .sidebar-chats .no-chat-prompt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--padding) var(--padding-large);
+  color: var(--text-color-muted);
+  font-size: var(--font-large);
+}
+.sidebar .sidebar-body .sidebar-chats .no-chat-prompt p:last-of-type {
+  margin-top: var(--padding-small);
+  font-size: var(--font-medium);
+  color: var(--text-color);
+  cursor: pointer;
 }/*# sourceMappingURL=Sidebar.css.map */

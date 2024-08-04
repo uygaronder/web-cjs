@@ -9,15 +9,13 @@ import NewChat from "../../shared/assets/svg/new-chat.svg";
 import Search from "../../shared/assets/svg/search.svg";
 
 const Sidebar = () => {
+  const chatrooms = JSON.parse(localStorage.getItem("chatrooms"));
   const newChatContainerRef = React.createRef();
   const inputRef = React.createRef();
   const handleSearchBarClick = () => {
     inputRef.current.focus();
   };
 
-  const chatrooms = JSON.parse(localStorage.getItem("chatrooms"));
-
-  console.log("chatrooms: ", chatrooms);
 
   const handleNewChatPrompt = () => {
     console.log(newChatContainerRef.current);
@@ -50,18 +48,26 @@ const Sidebar = () => {
       </div>
       <div className="sidebar-body">
         <ul className="sidebar-chats">
-          <Link to="/c/chat" className="sidebar-chat">
-            <div className="chat-avatar">
-              <img
-                src="https://placehold.co/100x100"
-                alt="Avatar"
-              />
+          {!chatrooms ? chatrooms.map((chatroom) => (
+            <Link
+              to={`/c/chat/${chatroom._id}`}
+              className="sidebar-chat"
+              key={chatroom._id}
+            >
+              <div className="chat-avatar">
+                <img src="https://placehold.co/100x100" alt="Avatar" />
+              </div>
+              <div className="chat-details">
+                <div className="chat-name">{chatroom.name}</div>
+                <div className="chat-message">{chatroom.lastMessage}</div>
+              </div>
+            </Link>
+          )) : 
+            <div className="no-chat-prompt">
+              <p>No chats yet</p>
+              <p onClick={handleNewChatPrompt}>Start a new chat</p>
             </div>
-            <div className="chat-details">
-              <div className="chat-name">John Doe</div>
-              <div className="chat-message">Hello, how are you?</div>
-            </div>
-          </Link>
+          }
         </ul>
       </div>
     </div>
