@@ -4,7 +4,7 @@ const CHAT_API_URL = `${API_URL}/chat`;
 
 
 // functions
-async function sendMessage(message, chatroomID) {
+export async function sendMessage(message, chatroomID) {
     const response = await fetch(`${CHAT_API_URL}/chat`, {
         method: 'POST',
         headers: {
@@ -19,7 +19,7 @@ async function sendMessage(message, chatroomID) {
     return response.json();
 }
 
-async function createChatroom(chatroomInfo, userIDs) {
+export async function createChatroom(chatroomInfo, userIDs) {
     const response = await fetch(`${CHAT_API_URL}/createchatroom`, {
         method: 'POST',
         headers: {
@@ -34,22 +34,13 @@ async function createChatroom(chatroomInfo, userIDs) {
     return response.json();
 }
 
-async function getChatrooms(userID) {
-    const response = await fetch(`${CHAT_API_URL}/chatrooms`, {
+export async function getChatrooms(userID) {
+    console.log('userID:', userID);
+    const response = await fetch(`${CHAT_API_URL}/getChats?userID=${userID}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            userID,
-        }),
     });
-
     return response.json();
 }
-
-export default {
-    sendMessage,
-    createChatroom,
-    getChatrooms,
-};

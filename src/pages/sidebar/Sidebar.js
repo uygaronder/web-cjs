@@ -15,6 +15,10 @@ const Sidebar = () => {
     inputRef.current.focus();
   };
 
+  const chatrooms = JSON.parse(localStorage.getItem("chatrooms"));
+
+  console.log("chatrooms: ", chatrooms);
+
   const handleNewChatPrompt = () => {
     console.log(newChatContainerRef.current);
     newChatContainerRef.current.className = "newChatContainer newChatContainerActive";

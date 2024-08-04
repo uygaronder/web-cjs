@@ -5,7 +5,7 @@ import '../css/NewChatRoom.css';
 import ChevronUp from '../../../shared/assets/svg/chevron-up.svg';
 import CreateRoom from '../../../shared/assets/svg/plus.svg';
 
-import { createChatroom } from '../../../shared/api/chat.api';
+import { createChatroom } from '../../../api/chat.api';
 
 const NewChatRoom = ( {closePrompt} ) => {
     const [chatName, setChatName] = useState('');

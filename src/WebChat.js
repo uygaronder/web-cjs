@@ -6,12 +6,20 @@ import Sidebar from "./pages/sidebar/Sidebar"
 import './shared/css/WebChat.css';
 
 import { pingServer } from './utility/connect';
+import { getChatrooms } from './api/chat.api';
 
 pingServer();
+const user = JSON.parse(localStorage.getItem('user'));
 
-// console log user details from local storage
-const user = localStorage.getItem('user');
-console.log('User: ', user);
+console.log('user._id: ', user._id);
+
+getChatrooms(user._id)
+  .then(data => {
+    localStorage.setItem('chatrooms', JSON.stringify(data));
+  })
+  .catch(error => {
+    console.error(error);
+  });
 
 function WebChat() {
   return (

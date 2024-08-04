@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './css/Login.css';
 import Google from '../../shared/assets/svg/google.svg';
 
-import { loginFunc, registerFunc, anonymousLoginFunc, googleLoginFunc } from "../../shared/api/login.api";
+import { loginFunc, registerFunc, anonymousLoginFunc, googleLoginFunc } from "../../api/login.api";
 
 
 function Login() {
