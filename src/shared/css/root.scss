@@ -75,3 +75,34 @@ a{
 #root{
     height: 100vh;
 }
+
+.loadingSpinner{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    background-color: #00000050;
+    .spinner{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 5px solid var(--background-light);
+        border-top: 5px solid var(--text-color);
+        animation: spin 1s linear infinite;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

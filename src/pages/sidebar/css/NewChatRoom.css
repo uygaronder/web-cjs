@@ -2,6 +2,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
+  max-height: 100%;
   height: 100%;
   width: 100%;
   padding: var(--padding);
@@ -10,6 +11,8 @@
   transition: 0.5s;
   left: -100%;
   border-right: 1px solid var(--background-light);
+  display: flex;
+  flex-direction: column;
 }
 .newChatContainer .newChatRoomUpperButtons {
   padding-bottom: var(--padding-large);
@@ -47,7 +50,66 @@
   background-color: var(--background-light);
   margin: var(--padding) 0;
 }
+.newChatContainer .chatroomDropdownMenus {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuControls .dropdownChevron img {
+  filter: var(--svg-filter);
+  transform: rotate(180deg);
+  transition: 0.1s ease;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuContents {
+  height: 0;
+  overflow: hidden;
+  transition: 0.1s ease;
+  -webkit-animation: dropdownMenuHeightAnimationRev 0.1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer.dropdownActive {
+  height: 100%;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer.dropdownActive .chatroomDropdownMenuControls .dropdownChevron img {
+  transform: rotate(0deg);
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer.dropdownActive .chatroomDropdownMenuContents {
+  height: 100%;
+  -webkit-animation: dropdownMenuHeightAnimation 0.1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+}
 
 .newChatContainerActive {
   left: 0;
+}
+
+@keyframes dropdownMenuHeightAnimation {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
+  }
+}
+@keyframes dropdownMenuHeightAnimationRev {
+  0% {
+    height: 100%;
+  }
+  100% {
+    height: 0;
+  }
 }/*# sourceMappingURL=NewChatRoom.css.map */

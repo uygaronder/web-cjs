@@ -19,7 +19,7 @@ export async function sendMessage(message, chatroomID) {
     return response.json();
 }
 
-export async function createChatroom(chatroomInfo, userIDs) {
+export async function createChatroom(chatroomInfo, creator, invitedUsers) {
     const response = await fetch(`${CHAT_API_URL}/createchatroom`, {
         method: 'POST',
         headers: {
@@ -27,10 +27,11 @@ export async function createChatroom(chatroomInfo, userIDs) {
         },
         body: JSON.stringify({
             chatroomInfo,
-            userIDs,
+            creator,
+            invitedUsers,
         }),
     });
-
+    
     return response.json();
 }
 
