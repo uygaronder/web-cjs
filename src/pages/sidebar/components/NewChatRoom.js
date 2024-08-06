@@ -29,7 +29,6 @@ const NewChatRoom = ( {closePrompt} ) => {
         
         createChatroom(chatroomInfo, creatorId, invitedUsers)
             .then(data => {
-            console.log(data);
             setLoading(false);
             closePrompt();
             })
