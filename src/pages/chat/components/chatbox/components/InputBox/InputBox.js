@@ -6,33 +6,42 @@ import './css/InputBox.css';
 import X from '../../../../../../shared/assets/svg/x.svg';
 
 
-const InputBox = (c, isReplyingTo) => {
+const InputBox = (c, isReplyingTo, replyID) => {
+    const chatroom = c.chatroom;
+
+    const userID = JSON.parse(localStorage.getItem('user'))._id;
+
     isReplyingTo = isReplyingTo.isReplyingTo;
-    const [textMessage, setTextMessage] = useState('');
+    const [inputValue, setInputValue] = useState('');
+    const isAReply = isReplyingTo ? true : false;
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle the form submission here
-        console.log('Submitted:', inputValue);
-        setTextMessage('');
+        console.log(inputValue);
     };
 
     const handleSendMessage = () => {
-        sendMessage(c.chatroom._id, inputValue)
+        const messageInfo = {
+            message: inputValue,
+            chatroomID: chatroom._id,
+            reply: {
+                isAReply: isAReply ? true : false,
+                replyID: isAReply ? replyID : null,
+            },
+            userID: userID,
+        };
+        sendMessage(messageInfo)
             .then(data => {
                 console.log(data);
             })
             .catch(error => {
                 console.error(error);
             });
+            setInputValue('');
     }
 
     return (
-        <form onSubmit={handleSubmit} className='inputbox'>
+        <form className='inputbox'>
             {isReplyingTo && (
             <div className='replybox'>
                 <div className='replybox-message'>
@@ -45,12 +54,7 @@ const InputBox = (c, isReplyingTo) => {
             </div>
             )}
             <div className='inputs'>
-                <input
-                    type="text"
-                    value={textMessage}
-                    onChange={handleChange}
-                    placeholder="Type your message..."
-                />
+                <input type='text' placeholder='Type a message' value={inputValue} onChange={handleChange} />
                 <button type="submit" onClick={handleSendMessage}>Send</button>
             </div>
         </form>

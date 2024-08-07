@@ -5,7 +5,7 @@ const CHAT_API_URL = `${API_URL}/chat`;
 
 // functions
 export async function sendMessage(messageInfo) {
-    const response = await fetch(`${CHAT_API_URL}/chat`, {
+    const response = await fetch(`${CHAT_API_URL}/newMessage`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -13,6 +13,9 @@ export async function sendMessage(messageInfo) {
         body: JSON.stringify({
             message: messageInfo.message,
             chatroomID: messageInfo.chatroomID,
+            reply: messageInfo.reply,
+            image: messageInfo.image,
+            userID: messageInfo.userID,
         }),
     });
 
