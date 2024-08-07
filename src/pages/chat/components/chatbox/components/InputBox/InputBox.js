@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
-import './css/InputBox.css';
+import { sendMessage } from '../../../../../../api/chat.api';
 
+import './css/InputBox.css';
 import X from '../../../../../../shared/assets/svg/x.svg';
 
-const InputBox = (isReplyingTo) => {
+
+const InputBox = (c, isReplyingTo) => {
     isReplyingTo = isReplyingTo.isReplyingTo;
-    const [inputValue, setInputValue] = useState('');
+    const [textMessage, setTextMessage] = useState('');
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
@@ -16,8 +18,18 @@ const InputBox = (isReplyingTo) => {
         e.preventDefault();
         // Handle the form submission here
         console.log('Submitted:', inputValue);
-        setInputValue('');
+        setTextMessage('');
     };
+
+    const handleSendMessage = () => {
+        sendMessage(c.chatroom._id, inputValue)
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
 
     return (
         <form onSubmit={handleSubmit} className='inputbox'>
@@ -35,11 +47,11 @@ const InputBox = (isReplyingTo) => {
             <div className='inputs'>
                 <input
                     type="text"
-                    value={inputValue}
+                    value={textMessage}
                     onChange={handleChange}
                     placeholder="Type your message..."
                 />
-                <button type="submit">Send</button>
+                <button type="submit" onClick={handleSendMessage}>Send</button>
             </div>
         </form>
     );

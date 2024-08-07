@@ -1,6 +1,9 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./css/Sidebar.css";
+
+import { getChatrooms } from "../../api/chat.api";
 
 import NewChatRoom from "./components/NewChatRoom";
 
@@ -9,12 +12,26 @@ import NewChat from "../../shared/assets/svg/new-chat.svg";
 import Search from "../../shared/assets/svg/search.svg";
 
 const Sidebar = () => {
-  const chatrooms = JSON.parse(localStorage.getItem("chatrooms"));
+  const [sidebarLoading , setSidebarLoading] = useState(true);
+  const chatroomIds = JSON.parse(localStorage.getItem("chats"));
+  const userId = JSON.parse(localStorage.getItem("user"))._id;
   const newChatContainerRef = React.createRef();
   const inputRef = React.createRef();
   const handleSearchBarClick = () => {
     inputRef.current.focus();
   };
+
+  const [sidebarChats, setSidebarChats] = useState([]);
+
+  useEffect(() => {
+    getChatrooms(userId).then(data => {
+      setSidebarLoading(false);
+      setSidebarChats(data);
+    }).catch(error => {
+      setSidebarLoading(false);
+      console.error(error);
+    });
+  }, []);
 
 
   const handleNewChatPrompt = () => {
@@ -48,7 +65,7 @@ const Sidebar = () => {
       </div>
       <div className="sidebar-body">
         <ul className="sidebar-chats">
-          {!chatrooms ? chatrooms.map((chatroom) => (
+          {!sidebarLoading ? sidebarChats.map((chatroom) => (
             <Link
               to={`/c/chat/${chatroom._id}`}
               className="sidebar-chat"
@@ -58,8 +75,10 @@ const Sidebar = () => {
                 <img src="https://placehold.co/100x100" alt="Avatar" />
               </div>
               <div className="chat-details">
-                <div className="chat-name">{chatroom.name}</div>
-                <div className="chat-message">{chatroom.lastMessage}</div>
+                <div className="chat-name">{chatroom.chatroomInfo.name}</div>
+                <div className="chat-message">
+                  {chatroom.messages.length > 0 ? chatroom.messages[chatroom.messages.length - 1].message : "No messages yet"}
+                </div>
               </div>
             </Link>
           )) : 

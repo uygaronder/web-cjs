@@ -58,7 +58,6 @@
 .newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer {
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
   height: 28px;
 }
 .newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuControls {
@@ -80,6 +79,58 @@
   transition: 0.1s ease;
   -webkit-animation: dropdownMenuHeightAnimationRev 0.1s ease-in-out;
   -webkit-animation-fill-mode: forwards;
+  padding-left: 10px;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuContents .menuContent p {
+  padding-bottom: 10px;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuContents .publicOrPrivateSlider {
+  display: flex;
+  width: -moz-max-content;
+  width: max-content;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--padding);
+  background-color: var(--background-light);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuContents .publicOrPrivateSlider p {
+  color: var(--text-color);
+  font-size: var(--font-medium);
+  padding: 0 5px;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuContents .publicOrPrivateSlider .switch {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  cursor: pointer;
+  transition: 0.1s ease;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuContents .publicOrPrivateSlider .switch .slider {
+  opacity: 0.7;
+  border-radius: 10px;
+  width: 55%;
+  height: 100%;
+  transition: 0.1s ease;
+  left: 0;
+  border: 1px solid white;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuContents .publicOrPrivateSlider .switch.switchActive {
+  left: 45%;
+}
+.newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer .chatroomDropdownMenuContents .publicOrPrivateSlider .switch.switchActive .slider {
+  opacity: 0.7;
+  border-radius: 10px;
+  width: 55%;
+  height: 100%;
+  transition: 0.1s ease;
 }
 .newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer.dropdownActive {
   height: 100%;
@@ -88,6 +139,7 @@
   transform: rotate(0deg);
 }
 .newChatContainer .chatroomDropdownMenus .chatroomDropdownMenuContainer.dropdownActive .chatroomDropdownMenuContents {
+  padding-top: 10px;
   height: 100%;
   -webkit-animation: dropdownMenuHeightAnimation 0.1s ease-in-out;
   -webkit-animation-fill-mode: forwards;

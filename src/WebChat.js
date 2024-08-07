@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Chat from "./pages/chat/Chat"
 import WebChatHome from "./pages/chat/components/webchathome/WebChatHome"
 import Sidebar from "./pages/sidebar/Sidebar"
+import Chatbox from "./pages/chat/components/chatbox/Chatbox"
 
 import './shared/css/WebChat.css';
 
@@ -10,8 +10,6 @@ import { getChatrooms } from './api/chat.api';
 
 pingServer();
 const user = JSON.parse(localStorage.getItem('user'));
-
-console.log('user._id: ', user._id);
 
 getChatrooms(user._id)
   .then(data => {
@@ -26,8 +24,8 @@ function WebChat() {
     <div className="webchat">
       <Sidebar />
       <Routes>
-        <Route path="chat" element={<Chat />} />
-        <Route path="*" element={<WebChatHome />} />
+          <Route path="/chat/:chatroomID" element={<Chatbox />} />
+          <Route path="*" element={<WebChatHome />} />
       </Routes>
     </div>
   );

@@ -5,20 +5,18 @@ import Message from './components/Message';
 import "./css/Message.css";
 import "./css/MessageBox.css";
 
-const MessageBox = () => {
+const MessageBox = (c) => {
+    const chatroom = c.chatroom;
     return (
         <div className="message-box">
-            <Message text="Hello!" sender="me" time="10:00" />
-            <Message text="Hi!" sender="other" time="10:01" />
-            <Message text="Hi!" sender="other" time="10:01" />
-            <Message text="Hi!" sender="other" time="10:01" />
-            <Message text="Hi!" sender="other" time="10:01" />
-            <Message text="How are you?" sender="me" time="10:02" />
-            <Message text="I'm good, thanks!" sender="other" time="10:03" />
-            <Message text="I'm good, thanks!" sender="other" time="10:04" />
-            <Message text="I'm good, thanks!" sender="other" time="10:05" />
-            <Message text="Hi! this is a reaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaly long messageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" sender="other" time="10:01" />
-            <Message text="Hi! this is a reaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaly long messageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee but from me" sender="me" time="10:01" />
+            {chatroom.messages.slice(-100).map((message, index) => (
+                <Message
+                    key={index}
+                    text={message.text}
+                    sender={message.user === JSON.parse(localStorage.getItem('user'))._id ? "me" : "other"}
+                    time={message.time}
+                />
+            ))}
         </div>
     );
 };

@@ -8,8 +8,12 @@ import CreateRoom from '../../../shared/assets/svg/plus.svg';
 import { createChatroom } from '../../../api/chat.api';
 
 const NewChatRoom = ( {closePrompt} ) => {
-    const [chatName, setChatName] = useState('');
+    const roomPublicitySwitchRef = React.createRef();
+
+    const [chatName, setChatName] = useState('testroom');
     const [loading, setLoading] = useState(false);
+    const [isPublic, setIsPublic] = useState(false);
+
     const invitedUsers = [];
 
     const handleInputChange = (e) => {
@@ -18,16 +22,17 @@ const NewChatRoom = ( {closePrompt} ) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setChatName('');
+        //setChatName('');
         const creatorId = JSON.parse(localStorage.getItem('user'))._id;
         const chatroomInfo = {
             name: chatName,
             creator: creatorId,
             roomType: 'group',
-            roomPublicity: 'public',
+            roomPublicity: isPublic? 'public' : 'private',
+            invitedUsers: invitedUsers,
         };
         
-        createChatroom(chatroomInfo, creatorId, invitedUsers)
+        createChatroom(chatroomInfo, creatorId)
             .then(data => {
             setLoading(false);
             closePrompt();
@@ -36,6 +41,11 @@ const NewChatRoom = ( {closePrompt} ) => {
             console.error(error);
             setLoading(false);
             });
+    };
+
+    const handleRoomPublicitySwitch = () => {
+        setIsPublic(!isPublic);
+        roomPublicitySwitchRef.current.classList.toggle('switchActive');
     };
 
     const handleDropwonActivate = (e) => {
@@ -79,13 +89,22 @@ const NewChatRoom = ( {closePrompt} ) => {
             <div className='chatroomDropdownMenus'>
                 <div className='chatroomDropdownMenuContainer'>
                     <div className='chatroomDropdownMenuControls' onClick={(e) => {handleDropwonActivate(e)}}>
-                        <p className='dropdownTitle'>Settings</p>
+                        <p className='dropdownTitle'>Room Settings</p>
                         <div className='dropdownChevron'>
                             <img src={ChevronUp} alt='Chevron' />
                         </div>
                     </div>
                     <div className='chatroomDropdownMenuContents'>
-                        Contents
+                        <div className='menuContent'>
+                            <p className='menuContentTitle'>Room Type</p>
+                            <div className='publicOrPrivateSlider' onClick={handleRoomPublicitySwitch}>
+                                <p>Private</p>
+                                <label className="switch" ref={roomPublicitySwitchRef}>
+                                    <span className='slider'></span>
+                                </label>
+                                <p>Public</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
