@@ -56,3 +56,13 @@ export async function getChatroom(chatroomID, userID) {
     });
     return response.json();
 }
+
+export async function getMessages(chatroomID) {
+    const response = await fetch(`${CHAT_API_URL}/getMessages?chatroomID=${chatroomID}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.json();
+}

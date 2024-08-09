@@ -77,7 +77,7 @@ const Sidebar = () => {
               <div className="chat-details">
                 <div className="chat-name">{chatroom.chatroomInfo.name}</div>
                 <div className="chat-message">
-                  {chatroom.messages.length > 0 ? chatroom.messages[chatroom.messages.length - 1].message : "No messages yet"}
+                  {"No messages yet"} {/* {chatroom.messages[chatroom.messages.length - 1].text} */}
                 </div>
               </div>
             </Link>
