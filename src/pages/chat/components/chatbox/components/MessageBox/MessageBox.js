@@ -28,16 +28,16 @@ const MessageBox = (c) => {
                 <Message
                     key={index}
                     text={message.text}
-                    sender={message.user === JSON.parse(localStorage.getItem('user'))._id ? "me" : "other"}
-                    time={message.time}
+                    sender={message.user._id === JSON.parse(localStorage.getItem('user'))._id ? "me" : "other"}
+                    time={message.createdAt}
                 />
             ))}
             {messages.map((message, index) => (
                 <Message
                     key={index}
-                    text={message.message}
-                    sender={message.userID === JSON.parse(localStorage.getItem('user'))._id ? "me" : "other"}
-                    time={message.time}
+                    text={message.text}
+                    sender={message.user._id === JSON.parse(localStorage.getItem('user'))._id ? "me" : "other"}
+                    time={message.createdAt}
                 />
             ))}
         </div>
