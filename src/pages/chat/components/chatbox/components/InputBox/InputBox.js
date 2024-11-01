@@ -17,10 +17,11 @@ const InputBox = (c, isReplyingTo, replyID) => {
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
-        console.log(inputValue);
     };
 
-    const handleSendMessage = () => {
+    const handleSendMessage = (e) => {
+        e.preventDefault();
+        
         const messageInfo = {
             message: inputValue,
             chatroomID: chatroom._id,

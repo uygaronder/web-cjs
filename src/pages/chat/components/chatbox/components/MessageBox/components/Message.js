@@ -9,14 +9,13 @@ const Message = ({ text, sender, time, id }) => {
     } else {
         sender = 'message-sender-other';
     }
-    const formattedTime = new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     return (
         <div className={`message ${sender}`}>
             <div className={`message-bubble`}>
                 <p>{text}</p>
             </div>
-            <div className="message-time">{formattedTime}</div>
+            <div className="message-time">{time}</div>
             <div className='more-options'></div>
         </div>
     );
