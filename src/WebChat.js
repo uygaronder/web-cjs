@@ -11,13 +11,15 @@ import { getChatrooms } from './api/chat.api';
 pingServer();
 const user = JSON.parse(localStorage.getItem('user'));
 
-getChatrooms(user._id)
-  .then(data => {
-    localStorage.setItem('chatrooms', JSON.stringify(data));
-  })
-  .catch(error => {
-    console.error(error);
-  });
+if (user) {
+  getChatrooms(user._id)
+    .then(data => {
+      localStorage.setItem('chatrooms', JSON.stringify(data));
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
 
 function WebChat() {
   return (
