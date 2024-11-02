@@ -7,7 +7,6 @@ import InputBox from './components/InputBox/InputBox';
 
 import { getChatroom, getMessages } from '../../../../api/chat.api';
 import { chatSocket } from '../../../../socket';
-import { set } from 'date-fns';
 
 const Chatbox = () => {
     const [messages, setMessages] = useState([]);
@@ -68,7 +67,7 @@ const Chatbox = () => {
                     <div className="loader"></div>
                 </div> :
                 <>
-                    <TopBar chatroom={chatroom} />
+                    <TopBar chatroom={chatroom} chatSocket={chatSocket} />
                     <MessageBox chatroom={chatroom} messages={messages} />
                     <InputBox chatroom={chatroom} isReplyingTo={null} onSendMessage={handleSendMessage} />
                 </>

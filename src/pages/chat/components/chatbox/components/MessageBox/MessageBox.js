@@ -3,7 +3,6 @@ import { format, isSameDay, parseISO, isValid } from 'date-fns';
 
 import Message from './components/Message';
 
-
 import "./css/Message.css";
 import "./css/MessageBox.css";
 
@@ -59,13 +58,12 @@ const MessageBox = ({ chatroom ,messages }) => {
                     if (!isValid(messageDate)) throw new Error("Invalid date");
                 } catch (error) {
                     console.error("Error parsing message date:", message.createdAt, error);
-                    messageDate = new Date(); // Default to current date if parsing fails
+                    messageDate = new Date();
                 }
             } else {
-                messageDate = new Date(); // Fallback if `createdAt` is missing
+                messageDate = new Date();
             }
 
-            // Add date header if messageDate is a new day
             if (!lastMessageDate || !isSameDay(messageDate, lastMessageDate)) {
                 formattedMessages.push(
                     <div key={`date-${index}`} className="message-box-date-indicator">

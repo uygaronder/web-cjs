@@ -16,7 +16,6 @@ const AuthRoute = ({ element, ...rest }) => {
 };
 
 export const Auth = ({ children }) => {
-    console.log('Auth ', children);
     return (
         <AuthRoute element={children} />
     );

@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import { sendMessage } from '../../../../../../api/chat.api';
+import { chatSocket } from '../../../../../../socket';
 
 import './css/InputBox.css';
 import X from '../../../../../../shared/assets/svg/x.svg';
 
 
 const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
-    
-
     const userID = JSON.parse(localStorage.getItem('user'))._id;
 
     isReplyingTo = isReplyingTo;
     const [inputValue, setInputValue] = useState('');
     const isAReply = isReplyingTo ? true : false;
+    const [isTyping, setIsTyping] = useState(false);
+    const typingTimeout = useRef(null);
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
+        handleTyping();
     };
 
     const handleSendMessage = (e) => {
@@ -42,6 +44,20 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
             });
             setInputValue('');
     }
+
+    const handleTyping = () => {
+        if (!isTyping) {
+            setIsTyping(true);
+            chatSocket.emit('typing', { chatroomID: chatroom._id, userID });
+        }
+
+        clearTimeout(typingTimeout.current);
+
+        typingTimeout.current = setTimeout(() => {
+            setIsTyping(false);
+            chatSocket.emit('stopTyping', { chatroomID: chatroom._id, userID });
+        }, 3000);
+    };
 
     return (
         <form className='inputbox'>
