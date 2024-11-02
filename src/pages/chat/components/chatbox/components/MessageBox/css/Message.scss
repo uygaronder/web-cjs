@@ -1,5 +1,4 @@
 .message {
-    display: flex;
     align-items: center;
     padding: var(--padding);
     background-color: var(--background-light);
@@ -24,6 +23,32 @@
         color: var(--text-color-muted);
         margin-left: 10px;
     
+    }
+
+    .message-username{
+        font-size: var(--font-small);
+        font-weight: 600;
+        color: var(--text-color-muted);
+        color: var(--accent-color);
+        margin-bottom: 10px;
+    }
+
+    .message-content{
+        max-width: 100%;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+
+    .message-bottom{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        justify-content: flex-end;
+        margin-top: 5px;
+        .message-time{
+            font-size: var(--font-small);
+            color: var(--text-color-muted);
+        }
     }
 
     .more-options{

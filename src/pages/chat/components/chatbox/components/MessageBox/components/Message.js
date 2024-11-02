@@ -13,11 +13,16 @@ const Message = ({ text, sender, time, id, username, displayUsername}) => {
 
     return (
         <div className={`message ${sender}`}>
-            <div className={`message-bubble`}>
-                <p>{text}</p>
+            {displayUsername && <div className="message-username">{username}</div>}
+            <div className='message-content'>
+                <div className={`message-bubble`}>
+                    <p>{text}</p>
+                </div>
             </div>
-            <div className="message-time">{time}</div>
-            <div className='more-options'></div>
+            <div className='message-bottom'>
+                <div className='more-options'></div>
+                <div className="message-time">{time}</div>
+            </div>
         </div>
     );
 };
