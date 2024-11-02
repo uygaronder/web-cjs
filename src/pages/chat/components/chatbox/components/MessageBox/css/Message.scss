@@ -44,9 +44,13 @@
         align-items: center;
         justify-content: space-between;
         justify-content: flex-end;
-        margin-top: 5px;
+        margin-top: 15px;
+        position: relative;
         .message-time{
-            font-size: var(--font-small);
+            position: absolute;
+            right: -5px;
+            bottom: -5px;
+            font-size: 10px;
             color: var(--text-color-muted);
         }
     }
