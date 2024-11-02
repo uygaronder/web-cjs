@@ -51,6 +51,10 @@ const MessageBox = ({ chatroom ,messages }) => {
         let lastMessageDate = null;
 
         messages.forEach((message, index) => {
+            console.log("Message: ", message);
+            console.log("User: ", JSON.parse(localStorage.getItem('user')));
+            console.log(JSON.parse(localStorage.getItem('user'))._id === message.user._id);
+
             let messageDate;
             if (message.createdAt) {
                 try {
@@ -79,7 +83,10 @@ const MessageBox = ({ chatroom ,messages }) => {
                     key={message._id || index}
                     text={message.text}
                     sender={message.user._id === JSON.parse(localStorage.getItem('user'))._id ? 'me' : 'other'}
-                    time={format(messageDate, 'p')} // Display only time for each message
+                    time={format(messageDate, 'p')}
+                    id={message._id}
+                    username={message.user.username}
+                    displayUsername={index === 0 || message.user._id !== messages[index - 1].user._id}
                 />
             );
         });

@@ -15,8 +15,7 @@ export async function sendMessage(messageInfo) {
             chatroomID: messageInfo.chatroomID,
             reply: messageInfo.reply,
             image: messageInfo.image,
-            userID: messageInfo.userID,
-            username: messageInfo.username,
+            user: messageInfo.user,
         }),
     });
 

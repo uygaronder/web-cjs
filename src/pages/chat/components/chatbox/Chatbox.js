@@ -19,7 +19,6 @@ const Chatbox = () => {
         chatSocket.emit('joinRoom', chatroomID);
 
         chatSocket.on('receiveMessage', (message) => {
-            console.log("Recieved message: ", message);
             setMessages((prevMessages) => [...prevMessages, message]); 
         });
 
@@ -38,6 +37,7 @@ const Chatbox = () => {
 
                 getMessages(chatroomID)
                     .then(data => {
+                        console.log("Messages: ", data);
                         setMessages(data);
                     })
                     .catch(error => {

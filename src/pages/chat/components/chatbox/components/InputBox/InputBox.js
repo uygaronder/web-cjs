@@ -31,8 +31,12 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
                 isAReply: isAReply ? true : false,
                 replyID: isAReply ? replyID : null,
             },
-            userID: userID,
+            user:{
+                _id: userID,
+                username: JSON.parse(localStorage.getItem('user')).username,
+            }
         };
+
         sendMessage(messageInfo)
             .then(data => {
                 if (data) {
@@ -42,7 +46,11 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
             .catch(error => {
                 console.error(error);
             });
-            setInputValue('');
+        
+        setInputValue('');
+        clearTimeout(typingTimeout.current);
+        setIsTyping(false);
+        chatSocket.emit('stopTyping', { chatroomID: chatroom._id, userID });
     }
 
     const handleTyping = () => {
