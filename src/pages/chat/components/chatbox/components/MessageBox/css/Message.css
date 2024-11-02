@@ -8,6 +8,7 @@
   width: -moz-fit-content;
   width: fit-content;
   max-width: 60%;
+  min-width: 80px;
   position: relative;
 }
 .message:before {
