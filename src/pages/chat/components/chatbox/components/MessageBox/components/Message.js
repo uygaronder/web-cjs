@@ -3,8 +3,6 @@ import React from 'react';
 import Chevron from '../../../../../../../shared/assets/svg/chevron-up.svg';
 
 const Message = ({ text, sender, time, id, username, displayUsername}) => {
-    console.log("Message: ", text, sender, time, id, username, displayUsername);
-
     if (sender === 'me') {
         sender = 'message-sender-me';
     } else {

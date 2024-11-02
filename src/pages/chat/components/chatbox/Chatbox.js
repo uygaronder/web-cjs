@@ -37,7 +37,6 @@ const Chatbox = () => {
 
                 getMessages(chatroomID)
                     .then(data => {
-                        console.log("Messages: ", data);
                         setMessages(data);
                     })
                     .catch(error => {

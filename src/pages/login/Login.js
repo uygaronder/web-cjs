@@ -31,8 +31,6 @@ function Login() {
             .catch(error => {
                 console.error(error);
             });
-        
-        console.log('Registering...');
     }
 
     const handleLogin = () => {
@@ -43,8 +41,6 @@ function Login() {
             .catch(error => {
                 console.error(error);
             });
-
-        console.log('Logging in...');
     };
 
 

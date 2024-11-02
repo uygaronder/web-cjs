@@ -5,6 +5,8 @@ import "./css/Sidebar.css";
 
 import { getChatrooms } from "../../api/chat.api";
 
+import { notificationSocket, chatSocket } from "../../socket";
+
 import NewChatRoom from "./components/NewChatRoom";
 
 import Menu from "../../shared/assets/svg/menu.svg";
@@ -24,14 +26,40 @@ const Sidebar = () => {
   const [sidebarChats, setSidebarChats] = useState([]);
 
   useEffect(() => {
-    getChatrooms(userId).then(data => {
-      setSidebarLoading(false);
-      setSidebarChats(data);
-    }).catch(error => {
-      setSidebarLoading(false);
-      console.error(error);
-    });
-  }, []);
+    getChatrooms(userId)
+      .then(data => {
+        setSidebarLoading(false);
+        setSidebarChats(data);
+  
+        const chatroomIds = data.map((chatroom) => chatroom._id);
+        notificationSocket.emit("listenForUpdates", chatroomIds);
+  
+        chatSocket.on("newMessageNotification", (notificationData) => {
+          console.log("New notification: ", notificationData);
+  
+          setSidebarChats((prevChats) => {
+            return prevChats.map(chatroom => {
+              if (chatroom._id === notificationData.chatroomID) {
+                return {
+                  ...chatroom,
+                  lastMessage: notificationData.message, // Update lastMessage only
+                };
+              }
+              return chatroom;
+            });
+          });
+        });
+      })
+      .catch(error => {
+        setSidebarLoading(false);
+        console.error(error);
+      });
+  
+    return () => {
+      chatSocket.off("newMessageNotification");
+    };
+  }, [userId]);
+  
 
 
   const handleNewChatPrompt = () => {
@@ -42,6 +70,15 @@ const Sidebar = () => {
   const closePrompt = () => {
     newChatContainerRef.current.className = "newChatContainer";
   };
+
+  const generateLastMessage = (lastMessage) => {
+    let messageText = lastMessage.text;
+    if (messageText.length > 20) {
+      messageText = messageText.slice(0, 20) + "...";
+    }
+    const sender = lastMessage.user._id === userId ? "You" : lastMessage.user.username;
+    return `${sender}: ${messageText}`;
+  }
 
   return (
     <div className="sidebar">
@@ -76,8 +113,8 @@ const Sidebar = () => {
               </div>
               <div className="chat-details">
                 <div className="chat-name">{chatroom.chatroomInfo.name}</div>
-                <div className="chat-message">
-                  {"No messages yet"} {/* {chatroom.messages[chatroom.messages.length - 1].text} */}
+                <div className="chat-message last-message">
+                  {chatroom.lastMessage ? generateLastMessage(chatroom.lastMessage) : "No messages yet"}
                 </div>
               </div>
             </Link>

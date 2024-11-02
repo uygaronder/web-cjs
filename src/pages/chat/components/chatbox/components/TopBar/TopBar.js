@@ -19,12 +19,10 @@ const TopBar = ({ chatroom, chatSocket }) => {
 
     useEffect(() => {
         chatSocket.on('userTypingReceive', ({ userID }) => {
-            console.log("User typing: ", userID);
             setTypingUsers((prev) => [...new Set([...prev, userID])]);
         });
 
         chatSocket.on('userStoppedTypingReceive', ({ userID }) => {
-            console.log("User stopped typing: ", userID);
             setTypingUsers((prev) => prev.filter(id => id !== userID));
         });
 

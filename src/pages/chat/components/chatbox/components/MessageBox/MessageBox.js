@@ -51,10 +51,6 @@ const MessageBox = ({ chatroom ,messages }) => {
         let lastMessageDate = null;
 
         messages.forEach((message, index) => {
-            console.log("Message: ", message);
-            console.log("User: ", JSON.parse(localStorage.getItem('user')));
-            console.log(JSON.parse(localStorage.getItem('user'))._id === message.user._id);
-
             let messageDate;
             if (message.createdAt) {
                 try {
