@@ -1,57 +1,87 @@
-import React from 'react';
-import { format, isSameDay, parseISO } from 'date-fns';
-import socket from '../../../../../../socket';
+import React, { useEffect, useRef, useState } from 'react';
+import { format, isSameDay, parseISO, isValid } from 'date-fns';
 
 import Message from './components/Message';
 
-import { getMessages } from '../../../../../../api/chat.api';
 
 import "./css/Message.css";
 import "./css/MessageBox.css";
 
-const MessageBox = (c) => {
-    const chatroom = c.chatroom;
+const MessageBox = ({ chatroom ,messages }) => {
+    const messageEndRef = useRef(null);
+    const messageBoxRef = useRef(null);
+    const [isAtBottom, setIsAtBottom] = useState(true);
+    const [showNewMessageIndicator, setShowNewMessageIndicator] = useState(false);
 
-    const [messages, setMessages] = React.useState([]);
+    const scrollToBottom = () => {
+        messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    };
 
-    React.useEffect(() => {
-        getMessages(chatroom._id)
-            .then(data => {
-                setMessages(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+    const handleScroll = () => {
+        if (messageBoxRef.current) {
+            const { scrollTop, scrollHeight, clientHeight } = messageBoxRef.current;
+            const atBottom = scrollHeight - scrollTop === clientHeight;
+            setIsAtBottom(atBottom);
 
-        socket.on('receiveMessage', (messageData) => {
-            setMessages((prevMessages) => [...prevMessages, messageData]);
-        });
+            if (atBottom) {
+                setShowNewMessageIndicator(false);
+            }
+        }
+    };
 
-        return () => {
-            socket.off('receiveMessage');
-        };
+    useEffect(() => {
+        if (isAtBottom) {
+            scrollToBottom();
+        } else {
+            setShowNewMessageIndicator(true);
+        }
+    }, [messages]);
+
+    useEffect(() => {
+        const messageBox = messageBoxRef.current;
+        messageBox?.addEventListener('scroll', handleScroll);
+        return () => messageBox?.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [chatroom]);
 
     const renderMessagesWithDateHeaders = () => {
         const formattedMessages = [];
         let lastMessageDate = null;
 
         messages.forEach((message, index) => {
-            const messageDate = parseISO(message.createdAt); // Parse the date
+            let messageDate;
+            if (message.createdAt) {
+                try {
+                    messageDate = parseISO(message.createdAt);
+                    if (!isValid(messageDate)) throw new Error("Invalid date");
+                } catch (error) {
+                    console.error("Error parsing message date:", message.createdAt, error);
+                    messageDate = new Date(); // Default to current date if parsing fails
+                }
+            } else {
+                messageDate = new Date(); // Fallback if `createdAt` is missing
+            }
+
+            // Add date header if messageDate is a new day
             if (!lastMessageDate || !isSameDay(messageDate, lastMessageDate)) {
                 formattedMessages.push(
                     <div key={`date-${index}`} className="message-box-date-indicator">
-                        {format(messageDate, 'MMMM d, yyyy')} {/* Display date as Month Day, Year */}
+                        {format(messageDate, 'MMMM d, yyyy')}
                     </div>
                 );
                 lastMessageDate = messageDate;
             }
+
+            // Render the message with time formatting
             formattedMessages.push(
                 <Message
                     key={message._id || index}
                     text={message.text}
                     sender={message.user._id === JSON.parse(localStorage.getItem('user'))._id ? 'me' : 'other'}
-                    time={format(messageDate, 'p')} // Display time only for each message
+                    time={format(messageDate, 'p')} // Display only time for each message
                 />
             );
         });
@@ -60,8 +90,16 @@ const MessageBox = (c) => {
     };
 
     return (
-        <div className="message-box">
+        <div className="message-box" ref={messageBoxRef}>
             {renderMessagesWithDateHeaders()}
+            <div ref={messageEndRef} />
+            {showNewMessageIndicator && (
+                <div className="new-message-indicator-container">
+                    <div className='new-message-indicator' onClick={scrollToBottom}>
+                        <p>New Messages</p>
+                    </div>
+                </div>
+            )}
             {/*
             <div className='message-box-date-indicator'>
                 <p>Today</p>

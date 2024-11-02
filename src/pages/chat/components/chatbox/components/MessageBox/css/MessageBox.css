@@ -9,6 +9,7 @@
   padding: 30px;
   height: 100%;
   overflow-y: scroll;
+  position: relative;
 }
 .message-box::-webkit-scrollbar {
   width: 8px;
@@ -25,4 +26,20 @@
   justify-content: center;
   margin: 10px 0;
   color: var(--accent-color-muted);
+}
+.message-box .new-message-indicator-container {
+  position: fixed;
+  bottom: 50px;
+  left: 55%;
+  margin: 10px auto;
+}
+.message-box .new-message-indicator {
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid var(--accent-color-muted);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+.message-box .new-message-indicator:hover {
+  background-color: var(--accent-color-muted);
 }/*# sourceMappingURL=MessageBox.css.map */

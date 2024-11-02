@@ -16,6 +16,7 @@ export async function sendMessage(messageInfo) {
             reply: messageInfo.reply,
             image: messageInfo.image,
             userID: messageInfo.userID,
+            username: messageInfo.username,
         }),
     });
 

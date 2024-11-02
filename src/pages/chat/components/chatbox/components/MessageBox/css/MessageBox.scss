@@ -9,6 +9,7 @@
     padding: 30px;
     height: 100%;
     overflow-y: scroll;
+    position: relative;
 
     
     // custom minimal scrollbar
@@ -28,5 +29,23 @@
         justify-content: center;
         margin: 10px 0;
         color: var(--accent-color-muted);
+    }
+
+    .new-message-indicator-container{
+        position: fixed;
+        bottom: 50px;
+        left: 55%;
+        margin: 10px auto;
+    }
+
+    .new-message-indicator{
+        padding: 10px;
+        border-radius: 15px;
+        border: 1px solid var(--accent-color-muted);
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        &:hover{
+            background-color: var(--accent-color-muted);
+        }
     }
 }

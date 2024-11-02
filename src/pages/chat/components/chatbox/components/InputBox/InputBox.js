@@ -6,12 +6,12 @@ import './css/InputBox.css';
 import X from '../../../../../../shared/assets/svg/x.svg';
 
 
-const InputBox = (c, isReplyingTo, replyID) => {
-    const chatroom = c.chatroom;
+const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
+    
 
     const userID = JSON.parse(localStorage.getItem('user'))._id;
 
-    isReplyingTo = isReplyingTo.isReplyingTo;
+    isReplyingTo = isReplyingTo;
     const [inputValue, setInputValue] = useState('');
     const isAReply = isReplyingTo ? true : false;
 
@@ -33,7 +33,9 @@ const InputBox = (c, isReplyingTo, replyID) => {
         };
         sendMessage(messageInfo)
             .then(data => {
-                console.log(data);
+                if (data) {
+                    onSendMessage(data);
+                }
             })
             .catch(error => {
                 console.error(error);
