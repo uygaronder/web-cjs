@@ -5,7 +5,9 @@ const LoadingSpinner = () => {
     return (
         <div className="loading-spinner">
             <div className="spinner">
-                Loading...
+                <div className="spinner-inner">
+                    <div className="spinner-inner-inner"></div>
+                </div>
             </div>
         </div>
     );
