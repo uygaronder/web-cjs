@@ -11,7 +11,6 @@ const SidebarMenu = ({
     handleFindChatPrompt,
     toggleLogOut
  }) => {
-    console.log(toggleNewGroupPage);
 
     return (
         <div className="sidebar-menu">

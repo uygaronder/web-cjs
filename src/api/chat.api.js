@@ -48,7 +48,7 @@ export async function getChatrooms(userID) {
 }
 
 export async function getPublicChatrooms(query) {
-    const response = await fetch(`${CHAT_API_URL}/getPublicChats?query=${query}`, {
+    const response = await fetch(`${CHAT_API_URL}/getPublicChatrooms?query=${query}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

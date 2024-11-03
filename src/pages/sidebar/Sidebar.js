@@ -43,8 +43,6 @@ const Sidebar = () => {
         notificationSocket.emit("listenForUpdates", chatroomIds);
   
         chatSocket.on("newMessageNotification", (notificationData) => {
-          console.log("New notification: ", notificationData);
-  
           setSidebarChats((prevChats) => {
             return prevChats.map(chatroom => {
               if (chatroom._id === notificationData.chatroomID) {

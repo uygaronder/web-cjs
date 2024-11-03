@@ -5,6 +5,8 @@ import '../css/NewChatRoom.css';
 import ChevronUp from '../../../shared/assets/svg/chevron-up.svg';
 import CreateRoom from '../../../shared/assets/svg/plus.svg';
 
+import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
+
 import { createChatroom, getPublicChatrooms } from '../../../api/chat.api';
 
 const NewChatRoom = ( { closePrompt, type } ) => {
@@ -20,22 +22,30 @@ const NewChatRoom = ( { closePrompt, type } ) => {
     const [publicRooms, setPublicRooms] = useState([]);
     const [loading, setLoading] = useState(false);
     const [isPublic, setIsPublic] = useState(false);
+    const [publicSearched, setPublicSearched] = useState(false);
+    const [publicSearchLoading, setPublicSearchLoading] = useState(false);
 
     const invitedUsers = [];
 
     const handleInputChange = (e) => {
+        const inputValue = e.target.value;
+        setChatName(inputValue);
         if (type === 'newRoom'){
-            setChatName(e.target.value);
+            return;
         } else {
-            setPrivateRoomCode(e.target.value);
-            handlePublicRoomSearch();
+            handlePublicRoomSearch(inputValue);
         }
     };
 
-    const handlePublicRoomSearch = () => {
-        getPublicChatrooms(publicRoomInput)
+    const handlePublicRoomSearch = (inputValue) => {
+        setPublicSearchLoading(true);
+        setPublicSearched(true);
+
+        getPublicChatrooms(inputValue)
             .then(data => {
                 setPublicRooms(data);
+                console.log(data);
+                setPublicSearchLoading(false);
             })
             .catch(error => {
                 console.error(error);
@@ -158,7 +168,21 @@ const NewChatRoom = ( { closePrompt, type } ) => {
                                 }
                             </div>
                             <div className='publicFoundRooms'>
-                                
+                                {
+                                    // possibly hide this if the user deletes the search input in the future
+                                    publicSearched ? !publicSearchLoading ? publicRooms.length === 0 ? 
+                                    <p>No rooms found by that name</p> 
+                                    : publicRooms.map((room, index) => {
+                                        return (
+                                            <div className='publicRoom' key={index}>
+                                                <p>{room.name}</p>
+                                                <button onClick={() => {}}>Join</button>
+                                            </div>
+                                        );
+                                    })
+                                    : <LoadingSpinner /> 
+                                    : <></>
+                                }
                             </div>
                         </div>
                         <div className='privateRoomMenu'>

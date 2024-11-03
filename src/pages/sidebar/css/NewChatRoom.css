@@ -177,6 +177,17 @@
 .newChatContainer .findRoomsMenu .roomMenuUpper:hover .optionToggle img {
   opacity: 1;
 }
+.newChatContainer .findRoomsMenu .publicRoomMenu {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.newChatContainer .findRoomsMenu .publicRoomMenu .publicFoundRooms {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--padding) 0;
+  margin: var(--padding) 0;
+}
 .newChatContainer .findRoomsMenu .privateRoomMenu .privateInputs {
   padding: var(--padding-large) 0;
   display: flex;
