@@ -194,6 +194,50 @@
                 overflow-y: auto;
                 padding: var(--padding) 0;
                 margin: var(--padding) 0;
+                .publicRoom{
+                    border-bottom: 1px solid var(--background-light);
+                    margin-top: var(--padding);
+                    .publicRoomInfo{
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: var(--padding);
+                        img{
+                            height: 40px;
+                            width: 40px;
+                            border-radius: 50%;
+                            margin-right: var(--padding);
+                        }
+                        .publicRoomInfoText{
+                            display: flex;
+                            flex-direction: column;
+                            p{
+                                font-size: var(--font-medium);
+                                color: var(--text-color);
+                                margin: 0;
+                            }
+                            .roomName{
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                    button{
+                        padding: var(--padding);
+                        border: none;
+                        border-radius: 10px;
+                        background-color: var(--background-light-hover);
+                        color: var(--text-color);
+                        font-size: var(--font-medium);
+                        cursor: pointer;
+                        outline: none;
+                        margin-left: auto;
+                        transition: 0.1s ease;
+                        border: 1px solid var(--background-light);
+                        &:hover{
+                            
+                            background-color: var(--background-light);
+                        }
+                    }
+                }
             }
         }
         .privateRoomMenu{
@@ -202,20 +246,21 @@
                 display: flex;
                 flex-direction: column;
                 button{
-                    width: max-content;
-                    align-self: flex-end;
+                    margin-top: var(--padding);
                     padding: var(--padding);
                     border: none;
                     border-radius: 10px;
-                    background-color: var(--background-light);
+                    background-color: var(--background-light-hover);
                     color: var(--text-color);
                     font-size: var(--font-medium);
                     cursor: pointer;
                     outline: none;
-                    margin-top: var(--padding);
+                    margin-left: auto;
                     transition: 0.1s ease;
+                    border: 1px solid var(--background-light);
                     &:hover{
-                        background-color: var(--background-light-hover);
+                        
+                        background-color: var(--background-light);
                     }
                 }
             }

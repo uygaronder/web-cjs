@@ -175,8 +175,14 @@ const NewChatRoom = ( { closePrompt, type } ) => {
                                     : publicRooms.map((room, index) => {
                                         return (
                                             <div className='publicRoom' key={index}>
-                                                <p>{room.name}</p>
-                                                <button onClick={() => {}}>Join</button>
+                                                <div className='publicRoomInfo'>
+                                                    <img src='https://via.placeholder.com/150' alt='Room Avatar' />
+                                                    <div className='publicRoomInfoText'>
+                                                        <p>{room.name}</p>
+                                                        <p>{room.userCount}</p>
+                                                    </div>
+                                                    <button onClick={() => {}}>Join</button>
+                                                </div>
                                             </div>
                                         );
                                     })
