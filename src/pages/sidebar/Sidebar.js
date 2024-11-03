@@ -8,22 +8,29 @@ import { getChatrooms } from "../../api/chat.api";
 import { notificationSocket, chatSocket } from "../../socket";
 
 import NewChatRoom from "./components/NewChatRoom";
+import SidebarMenu from "./components/SidebarMenu";
 
 import Menu from "../../shared/assets/svg/menu.svg";
 import NewChat from "../../shared/assets/svg/new-chat.svg";
 import Search from "../../shared/assets/svg/search.svg";
+import Bell from "../../shared/assets/svg/bell.svg";
 
 const Sidebar = () => {
-  const [sidebarLoading , setSidebarLoading] = useState(true);
   const chatroomIds = JSON.parse(localStorage.getItem("chats"));
   const userId = JSON.parse(localStorage.getItem("user"))._id;
+  
+  const [sidebarLoading , setSidebarLoading] = useState(true);
+  const [sidebarChats, setSidebarChats] = useState([]);
+
   const newChatContainerRef = React.createRef();
+  const sidebarMenuRef = React.createRef();
+  const sidebarMenuButtonRef = React.createRef();
   const inputRef = React.createRef();
+  
   const handleSearchBarClick = () => {
     inputRef.current.focus();
   };
 
-  const [sidebarChats, setSidebarChats] = useState([]);
 
   useEffect(() => {
     getChatrooms(userId)
@@ -60,7 +67,14 @@ const Sidebar = () => {
     };
   }, [userId]);
   
+  const clearSearchBar = () => {
+    inputRef.current.value = "";
+  };
 
+  const handleSearchBarChange = (event) => {
+    // change what user is searching for taking in to account which menus are open
+    const searchQuery = event.target.value;
+  };
 
   const handleNewChatPrompt = () => {
     console.log(newChatContainerRef.current);
@@ -80,6 +94,12 @@ const Sidebar = () => {
     return `${sender}: ${messageText}`;
   }
 
+  const handleOpenMenu = () => {
+    sidebarMenuButtonRef.current.classList.toggle("active");
+    sidebarMenuRef.current.classList.toggle("active");
+    clearSearchBar();
+  };
+
   return (
     <div className="sidebar">
       <div className="newChatContainer" ref={newChatContainerRef}>
@@ -90,17 +110,33 @@ const Sidebar = () => {
           <img src="https://placehold.co/100x100" alt="Avatar" />
         </div>
         <div className="sidebar-header-buttons">
-          <img src={NewChat} alt="NewChat" onClick={() => handleNewChatPrompt()}/>
-          <img src={Menu} alt="Menu" />
+          <img src={Bell} alt="Notifications" />
+          {/*<img src={NewChat} alt="NewChat" onClick={() => handleNewChatPrompt()}/>*/}
+          <span ref={sidebarMenuButtonRef} className="sidebar-menu-button" onClick={() => handleOpenMenu()}>
+            <div className="menu-bar"></div>
+            <div className="menu-bar"></div>
+            <div className="menu-bar"></div>
+          </span>
+          {/*<img src={Menu} alt="Menu" onClick={() => handleOpenMenu()} />*/}
         </div>
       </div>
       <div className="sidebar-upper">
-        <div className="sidebar-search-bar" onClick={handleSearchBarClick}>
+        <div className="sidebar-search-bar active" onClick={handleSearchBarClick}>
           <img src={Search} alt="Search" />
           <input type="text" placeholder="Search" ref={inputRef} />
         </div>
       </div>
       <div className="sidebar-body">
+        <div className="sidebar-menu-container active" ref={sidebarMenuRef}>
+          <SidebarMenu
+            toggleNewGroupPage={handleNewChatPrompt}
+            handleSearchBarChange={handleSearchBarChange}
+            toggleFindUsersPage={() => {}}
+            toggleProfilePage={() => {}}
+            toggleSettingsPage={() => {}}
+            toggleLogOut={() => {}}
+          />
+        </div>
         <ul className="sidebar-chats">
           {!sidebarLoading ? sidebarChats.map((chatroom) => (
             <Link
@@ -124,6 +160,7 @@ const Sidebar = () => {
               <p onClick={handleNewChatPrompt}>Start a new chat</p>
             </div>
           }
+          
         </ul>
       </div>
     </div>

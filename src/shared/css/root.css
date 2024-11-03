@@ -4,10 +4,13 @@
   --padding-small: 5px;
   --padding-large: 20px;
   --border-radius: 5px;
+  --border-radius-large: 10px;
   --font-family: "Roboto", sans-serif;
   --font-small: 12px;
   --font-medium: 14px;
   --font-large: 16px;
+  --font-xlarge: 18px;
+  --font-xxlarge: 20px;
   --background-color: #1e1e1e;
   --background-dark: #121212;
   --background-light: #2e2e2e;
