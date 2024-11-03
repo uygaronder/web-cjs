@@ -16,8 +16,9 @@ const SidebarMenu = ({
         <div className="sidebar-menu">
             <ul className='sidebar-menu-buttons'>
                 <li onClick={() => toggleNewChatPage() }>New Chat</li>
-                <li onClick={() => toggleNewGroupPage() }>New Chatroom</li>
                 <li onClick={() => toggleFindUsersPage() }>Find Users</li>
+                <li onClick={() => toggleNewGroupPage() }>New Chatroom</li>
+                <li onClick={() => {} }>Find Chatroom</li>
             </ul>
             <ul className='sidebar-menu-buttons'>
                 <li onClick={() => toggleProfilePage() }>Profile</li>

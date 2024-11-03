@@ -121,13 +121,13 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="sidebar-upper">
-        <div className="sidebar-search-bar active" onClick={handleSearchBarClick}>
+        <div className="sidebar-search-bar" onClick={handleSearchBarClick}>
           <img src={Search} alt="Search" />
           <input type="text" placeholder="Search" ref={inputRef} />
         </div>
       </div>
       <div className="sidebar-body">
-        <div className="sidebar-menu-container active" ref={sidebarMenuRef}>
+        <div className="sidebar-menu-container" ref={sidebarMenuRef}>
           <SidebarMenu
             toggleNewGroupPage={handleNewChatPrompt}
             handleSearchBarChange={handleSearchBarChange}

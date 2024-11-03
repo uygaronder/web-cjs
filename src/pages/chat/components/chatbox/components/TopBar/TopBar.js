@@ -10,12 +10,15 @@ const TopBar = ({ chatroom, chatSocket }) => {
     const [showInfoMessage, setShowInfoMessage] = useState(true);
 
     useEffect(() => {
-        const infoMessageTimeout = setTimeout(() => {
+        resetInfoMessageTimeout();
+    }, [chatroom]);
+
+    const resetInfoMessageTimeout = () => {
+        setShowInfoMessage(true);
+        setTimeout(() => {
             setShowInfoMessage(false);
         }, 2000);
-
-        return () => clearTimeout(infoMessageTimeout);
-    }, []);
+    };
 
     useEffect(() => {
         chatSocket.on('userTypingReceive', ({ userID }) => {
