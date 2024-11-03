@@ -47,6 +47,16 @@ export async function getChatrooms(userID) {
     return response.json();
 }
 
+export async function getPublicChatrooms(query) {
+    const response = await fetch(`${CHAT_API_URL}/getPublicChats?query=${query}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.json();
+}
+
 export async function getChatroom(chatroomID, userID) {
     const response = await fetch(`${CHAT_API_URL}/getChatroom?chatroomID=${chatroomID}&userID=${userID}`, {
         method: 'GET',

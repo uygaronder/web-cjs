@@ -23,6 +23,7 @@ const Sidebar = () => {
   const [sidebarChats, setSidebarChats] = useState([]);
 
   const newChatContainerRef = React.createRef();
+  const findChatContainerRef = React.createRef();
   const sidebarMenuRef = React.createRef();
   const sidebarMenuButtonRef = React.createRef();
   const inputRef = React.createRef();
@@ -77,12 +78,19 @@ const Sidebar = () => {
   };
 
   const handleNewChatPrompt = () => {
-    console.log(newChatContainerRef.current);
     newChatContainerRef.current.className = "newChatContainer newChatContainerActive";
   };
 
-  const closePrompt = () => {
+  const closeNewChatPrompt = () => {
     newChatContainerRef.current.className = "newChatContainer";
+  };
+
+  const handleFindChatPrompt = () => {
+    findChatContainerRef.current.className = "newChatContainer newChatContainerActive";
+  };
+
+  const closeFindChatPrompt = () => {
+    findChatContainerRef.current.className = "newChatContainer";
   };
 
   const generateLastMessage = (lastMessage) => {
@@ -103,7 +111,10 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="newChatContainer" ref={newChatContainerRef}>
-        <NewChatRoom closePrompt={closePrompt} />
+        <NewChatRoom type={"newRoom"} closePrompt={closeNewChatPrompt} />
+      </div>
+      <div className="newChatContainer newChatContainerActive" ref={findChatContainerRef}>
+        <NewChatRoom type={"findRoom"} closePrompt={closeFindChatPrompt} />
       </div>
       <div className="sidebar-header">
         <div className="sidebar-avatar">
@@ -130,6 +141,7 @@ const Sidebar = () => {
         <div className="sidebar-menu-container" ref={sidebarMenuRef}>
           <SidebarMenu
             toggleNewGroupPage={handleNewChatPrompt}
+            handleFindChatPrompt={handleFindChatPrompt}
             handleSearchBarChange={handleSearchBarChange}
             toggleFindUsersPage={() => {}}
             toggleProfilePage={() => {}}

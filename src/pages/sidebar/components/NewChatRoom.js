@@ -5,19 +5,41 @@ import '../css/NewChatRoom.css';
 import ChevronUp from '../../../shared/assets/svg/chevron-up.svg';
 import CreateRoom from '../../../shared/assets/svg/plus.svg';
 
-import { createChatroom } from '../../../api/chat.api';
+import { createChatroom, getPublicChatrooms } from '../../../api/chat.api';
 
-const NewChatRoom = ( {closePrompt} ) => {
+const NewChatRoom = ( { closePrompt, type } ) => {
+    // type is either 'newChat' or 'findChat'
+
     const roomPublicitySwitchRef = React.createRef();
+    const publicRoomSearchRef = React.createRef();
+    const privateRoomSearchRef = React.createRef();
 
-    const [chatName, setChatName] = useState('testroom');
+    const [chatName, setChatName] = useState('');
+    const [publicRoomInput, setPublicRoomInput] = useState('');
+    const [privateRoomCode, setPrivateRoomCode] = useState('');
+    const [publicRooms, setPublicRooms] = useState([]);
     const [loading, setLoading] = useState(false);
     const [isPublic, setIsPublic] = useState(false);
 
     const invitedUsers = [];
 
     const handleInputChange = (e) => {
-        setChatName(e.target.value);
+        if (type === 'newRoom'){
+            setChatName(e.target.value);
+        } else {
+            setPrivateRoomCode(e.target.value);
+            handlePublicRoomSearch();
+        }
+    };
+
+    const handlePublicRoomSearch = () => {
+        getPublicChatrooms(publicRoomInput)
+            .then(data => {
+                setPublicRooms(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     };
 
     const handleSubmit = (e) => {
@@ -60,6 +82,14 @@ const NewChatRoom = ( {closePrompt} ) => {
             currentMenu.classList.add('dropdownActive');
         }
     };
+    
+    const handlePublicRoomMenuToggle = (e) => {
+        console.log('public room menu toggle');
+    }
+
+    const handlePrivateRoomMenuToggle = (e) => {
+        console.log('private room menu toggle');
+    }
 
     {/* already wrapped in upper component */}
     return (
@@ -73,40 +103,84 @@ const NewChatRoom = ( {closePrompt} ) => {
                 <span className='backButton' onClick={closePrompt}>
                     <img src={ChevronUp} alt='Back' />
                 </span>
-                <span className='createRoomButton' onClick={handleSubmit}>
-                    <img src={CreateRoom} alt='Create' />
-                </span>
+                {
+                    type === 'newRoom' && 
+                    <span className='createRoomButton' onClick={handleSubmit}>
+                        <img src={CreateRoom} alt='Create' />
+                    </span>
+                }
+                
             </div>
             <div>
                 <input
                     type="text"
-                    placeholder="Enter chat room name"
+                    placeholder={type === 'newRoom' ? 'Room Name' : 'Search Public Rooms'}
                     value={chatName}
                     onChange={handleInputChange}
                 />
             </div>
             <span className='verticalDivider'></span>
             <div className='chatroomDropdownMenus'>
-                <div className='chatroomDropdownMenuContainer'>
-                    <div className='chatroomDropdownMenuControls' onClick={(e) => {handleDropwonActivate(e)}}>
-                        <p className='dropdownTitle'>Room Settings</p>
-                        <div className='dropdownChevron'>
-                            <img src={ChevronUp} alt='Chevron' />
+                {
+                    type === 'newRoom' ?
+                    <div className='chatroomDropdownMenuContainer'>
+                        <div className='chatroomDropdownMenuControls' onClick={(e) => {handleDropwonActivate(e)}}>
+                            <p className='dropdownTitle'>Room Settings</p>
+                            <div className='dropdownChevron'>
+                                <img src={ChevronUp} alt='Chevron' />
+                            </div>
                         </div>
-                    </div>
-                    <div className='chatroomDropdownMenuContents'>
-                        <div className='menuContent'>
-                            <p className='menuContentTitle'>Room Type</p>
-                            <div className='publicOrPrivateSlider' onClick={handleRoomPublicitySwitch}>
-                                <p>Private</p>
-                                <label className="switch" ref={roomPublicitySwitchRef}>
-                                    <span className='slider'></span>
-                                </label>
-                                <p>Public</p>
+                        <div className='chatroomDropdownMenuContents'>
+                            <div className='menuContent'>
+                                <p className='menuContentTitle'>Room Type</p>
+                                <div className='publicOrPrivateSlider' onClick={handleRoomPublicitySwitch}>
+                                    <p>Private</p>
+                                    <label className="switch" ref={roomPublicitySwitchRef}>
+                                        <span className='slider'></span>
+                                    </label>
+                                    <p>Public</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    :
+                    <div className='findRoomsMenu'>
+                        <div className='publicRoomMenu'>
+                            <div className='roomMenuUpper'>
+                                <p>Find Public Rooms</p>
+                                {
+                                    /*
+                                    menu toggle to be implemented later
+                                    <div className='optionToggle'>
+                                        <img src={ChevronUp} alt='Chevron' />
+                                    </div>
+                                    */
+                                }
+                            </div>
+                            <div className='publicFoundRooms'>
+                                
+                            </div>
+                        </div>
+                        <div className='privateRoomMenu'>
+                            <div className='divider'></div>
+                            <div className='roomMenuUpper'>
+                                <p>Join Private Room</p>
+                                {
+                                    /*
+                                    menu toggle to be implemented later
+                                    <div className='optionToggle'>
+                                        <img src={ChevronUp} alt='Chevron' />
+                                    </div>
+                                    */
+                                }
+                            </div>
+                            <div className='privateInputs'>
+                                <input type='text' placeholder='Room Code' />
+                                <button>Send Join Invite</button>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </>
     );

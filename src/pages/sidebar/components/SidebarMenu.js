@@ -8,6 +8,7 @@ const SidebarMenu = ({
     toggleFindUsersPage,
     toggleProfilePage,
     toggleSettingsPage,
+    handleFindChatPrompt,
     toggleLogOut
  }) => {
     console.log(toggleNewGroupPage);
@@ -18,7 +19,7 @@ const SidebarMenu = ({
                 <li onClick={() => toggleNewChatPage() }>New Chat</li>
                 <li onClick={() => toggleFindUsersPage() }>Find Users</li>
                 <li onClick={() => toggleNewGroupPage() }>New Chatroom</li>
-                <li onClick={() => {} }>Find Chatroom</li>
+                <li onClick={() => {handleFindChatPrompt()} }>Find Chatroom</li>
             </ul>
             <ul className='sidebar-menu-buttons'>
                 <li onClick={() => toggleProfilePage() }>Profile</li>
