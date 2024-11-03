@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import TopBar from './components/TopBar/TopBar';
 import MessageBox from './components/MessageBox/MessageBox';
@@ -13,13 +14,15 @@ const Chatbox = () => {
     const [loading , setLoading] = useState(true);
     const [chatroom, setChatroom] = useState(null);
 
-    const chatroomID = window.location.pathname.split('/')[3];
+    const { chatroomID } = useParams();
 
     useEffect(() => {
         chatSocket.emit('joinRoom', chatroomID);
 
         chatSocket.on('receiveMessage', (message) => {
-            setMessages((prevMessages) => [...prevMessages, message]); 
+            if (message.chatroomID === chatroomID) {
+                setMessages((prevMessages) => [...prevMessages, message]);
+            }
         });
 
         return () => {
