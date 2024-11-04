@@ -29,6 +29,7 @@
 .top-bar .top-bar-buttons {
   display: flex;
   align-items: center;
+  position: relative;
 }
 .top-bar .top-bar-buttons button {
   background-color: transparent;
@@ -41,4 +42,31 @@
 }
 .top-bar .top-bar-buttons button img {
   filter: var(--svg-filter);
+}
+.top-bar .top-bar-buttons .top-bar-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  z-index: 1;
+  background-color: var(--background-dark);
+  border-radius: 10px;
+  border: 1px solid var(--background-light);
+  display: none;
+}
+.top-bar .top-bar-buttons .top-bar-menu p {
+  font-size: var(--font-large);
+  color: var(--text-color);
+  cursor: pointer;
+  padding: var(--padding) var(--padding-large);
+  white-space: nowrap;
+  transition: 0.1s ease;
+}
+.top-bar .top-bar-buttons .top-bar-menu p:hover {
+  background-color: var(--background-light);
+}
+.top-bar .top-bar-buttons .top-bar-menu p:last-of-type {
+  color: var(--danger-color);
+}
+.top-bar .top-bar-buttons .top-bar-menu.open {
+  display: block;
 }/*# sourceMappingURL=TopBar.css.map */

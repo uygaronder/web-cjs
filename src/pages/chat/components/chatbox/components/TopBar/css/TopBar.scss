@@ -28,6 +28,7 @@
     .top-bar-buttons{
         display: flex;
         align-items: center;
+        position: relative;
         button{
             background-color: transparent;
             border: none;
@@ -38,6 +39,33 @@
             }
             img{
                 filter: var(--svg-filter);
+            }
+        }
+        .top-bar-menu{
+            position: absolute;
+            top: 40px;
+            right: 0;
+            z-index: 1;
+            background-color: var(--background-dark);
+            border-radius: 10px;
+            border: 1px solid var(--background-light);
+            display: none;
+            p{
+                font-size: var(--font-large);
+                color: var(--text-color);
+                cursor: pointer;
+                padding: var(--padding) var(--padding-large);
+                white-space: nowrap;
+                transition: 0.1s ease;
+                &:hover{
+                    background-color: var(--background-light);
+                }
+                &:last-of-type{
+                    color: var(--danger-color);
+                }
+            }
+            &.open{
+                display: block;
             }
         }
     }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import "./css/TopBar.css";
 
@@ -8,6 +8,10 @@ import More from "../../../../../../shared/assets/svg/more-vertical.svg";
 const TopBar = ({ chatroom, chatSocket }) => {
     const [typingUsers, setTypingUsers] = useState([]);
     const [showInfoMessage, setShowInfoMessage] = useState(true);
+    const [topBarMenuOpen, setTopBarMenuOpen] = useState(false);
+    const menuRef = useRef(null);
+
+    const DISTANCE_THRESHOLD = 400;
 
     useEffect(() => {
         resetInfoMessageTimeout();
@@ -35,6 +39,39 @@ const TopBar = ({ chatroom, chatSocket }) => {
         };
     }, [chatSocket]);
 
+    useEffect(() => {
+        if (topBarMenuOpen) {
+            document.addEventListener('mousemove', handleMouseMove);
+        } else {
+            document.removeEventListener('mousemove', handleMouseMove);
+        }
+
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, [topBarMenuOpen]);
+
+    const handleMouseMove = (event) => {
+        if (menuRef.current) {
+            const menuRect = menuRef.current.getBoundingClientRect();
+            const menuCenterX = menuRect.left + menuRect.width / 2;
+            const menuCenterY = menuRect.top + menuRect.height / 2;
+
+            const distance = Math.sqrt(
+                Math.pow(event.clientX - menuCenterX, 2) +
+                Math.pow(event.clientY - menuCenterY, 2)
+            );
+
+            if (distance > DISTANCE_THRESHOLD) {
+                setTopBarMenuOpen(false);
+            }
+        }
+    };
+
+    const handleOpenMoreMenu = () => {
+        setTopBarMenuOpen(!topBarMenuOpen);
+    };
+
     const displayMessage = typingUsers.length > 0
     ? `${typingUsers.length > 1 ? 'Several people are typing...' : 'Someone is typing...'}`
     : showInfoMessage ? 'Click here for more info' : '';
@@ -56,10 +93,14 @@ const TopBar = ({ chatroom, chatSocket }) => {
                     }
                 </div>
             </div>
-            <div className="top-bar-buttons">
-                <button className="top-bar-button">
+            <div className="top-bar-buttons" ref={menuRef}>
+                <button className="top-bar-button" onClick={handleOpenMoreMenu}>
                     <img src={More} alt="More" />
                 </button>
+                <div className={`top-bar-menu ${topBarMenuOpen ? 'open' : ''}`}>
+                    <p className="top-bar-menu-item">Leave Chat</p>
+                    <p className="top-bar-menu-item">Delete Chat</p>
+                </div>
             </div>
         </div>
     );

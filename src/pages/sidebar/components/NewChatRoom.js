@@ -68,6 +68,9 @@ const NewChatRoom = ( { closePrompt, type } ) => {
             .then(data => {
             setLoading(false);
             closePrompt();
+            // might be wrong, to be tested
+            window.location.href = `/c/${data._id}`;
+            // ------------------------------
             })
             .catch(error => {
             console.error(error);
@@ -100,8 +103,7 @@ const NewChatRoom = ( { closePrompt, type } ) => {
     const handlePrivateRoomMenuToggle = (e) => {
         console.log('private room menu toggle');
     }
-
-    {/* already wrapped in upper component */}
+    
     return (
         <>
             {loading && 
@@ -179,8 +181,9 @@ const NewChatRoom = ( { closePrompt, type } ) => {
                                                     <img src='https://via.placeholder.com/150' alt='Room Avatar' />
                                                     <div className='publicRoomInfoText'>
                                                         <p>{room.name}</p>
-                                                        <p>{room.userCount}</p>
+                                                        <p>{room.userCount + " users"}</p>
                                                     </div>
+                                                    {}
                                                     <button onClick={() => {}}>Join</button>
                                                 </div>
                                             </div>

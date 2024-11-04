@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { io } from 'socket.io-client';
+import { userSocket } from '../socket';
 
 export const UserContext = createContext();
 
@@ -10,15 +10,21 @@ export const UserProvider = ({ children }) => {
     });
 
     useEffect(() => {
-        const socket = io(process.env.REACT_APP_API_URL);
+        userSocket.on('connect', () => {
+            console.log('User socket connected');
+            userSocket.emit('requestUserUpdate');
+        });
 
-        socket.on('userUpdate', (updatedUserData) => {
+        userSocket.on('userUpdated', (updatedUserData) => {
             setUser(updatedUserData);
             localStorage.setItem('user', JSON.stringify(updatedUserData));
+
+            console.log('User updated:', updatedUserData);
         });
 
         return () => {
-            socket.disconnect();
+            userSocket.off('connect');
+            userSocket.off('userUpdated');
         };
     }, []);
 

@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+
+import { UserProvider } from './context/UserContext'
 import WebChatHome from "./pages/chat/components/webchathome/WebChatHome"
 import Sidebar from "./pages/sidebar/Sidebar"
 import Chatbox from "./pages/chat/components/chatbox/Chatbox"
@@ -23,13 +25,15 @@ if (user) {
 
 function WebChat() {
   return (
-    <div className="webchat">
-      <Sidebar />
-      <Routes>
-          <Route path="/chat/:chatroomID" element={<Chatbox />} />
-          <Route path="*" element={<WebChatHome />} />
-      </Routes>
-    </div>
+    <UserProvider>
+      <div className="webchat">
+        <Sidebar />
+        <Routes>
+            <Route path="/chat/:chatroomID" element={<Chatbox />} />
+            <Route path="*" element={<WebChatHome />} />
+        </Routes>
+      </div>
+    </UserProvider>
   );
 }
 
