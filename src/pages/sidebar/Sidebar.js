@@ -111,7 +111,7 @@ const Sidebar = () => {
       <div className="newChatContainer" ref={newChatContainerRef}>
         <NewChatRoom type={"newRoom"} closePrompt={closeNewChatPrompt} />
       </div>
-      <div className="newChatContainer newChatContainerActive" ref={findChatContainerRef}>
+      <div className="newChatContainer" ref={findChatContainerRef}>
         <NewChatRoom type={"findRoom"} closePrompt={closeFindChatPrompt} />
       </div>
       <div className="sidebar-header">

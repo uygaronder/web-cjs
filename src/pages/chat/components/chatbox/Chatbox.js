@@ -63,7 +63,7 @@ const Chatbox = () => {
             userID: JSON.parse(localStorage.getItem('user'))._id,
         });
     };
-
+    
     return (
         <div className="chatbox">
             {

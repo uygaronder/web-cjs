@@ -6,6 +6,8 @@ import Message from './components/Message';
 import "./css/Message.css";
 import "./css/MessageBox.css";
 
+// I've noticed that whatsapp uses the loaded last message quickly load the last message on chatroom change and then load the rest of the messages
+
 const MessageBox = ({ chatroom ,messages }) => {
     const messageEndRef = useRef(null);
     const messageBoxRef = useRef(null);
