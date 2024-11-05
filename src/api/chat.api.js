@@ -63,6 +63,9 @@ export async function getChatroom(chatroomID, userID) {
         headers: {
             'Content-Type': 'application/json',
         },
+    }).catch(error => {
+        console.error("error: ", error);
+        return error;
     });
     return response.json();
 }
@@ -73,6 +76,17 @@ export async function getMessages(chatroomID) {
         headers: {
             'Content-Type': 'application/json',
         },
+    });
+    return response.json();
+}
+
+export async function deleteChatroom(chatroomID) {
+    const response = await fetch(`${CHAT_API_URL}/deleteChatroom`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ chatroomID }),
     });
     return response.json();
 }

@@ -15,9 +15,13 @@ import NewChat from "../../shared/assets/svg/new-chat.svg";
 import Search from "../../shared/assets/svg/search.svg";
 import Bell from "../../shared/assets/svg/bell.svg";
 
+import { UserContext } from '../../context/UserContext';
+
 const Sidebar = () => {
-  const chatroomIds = JSON.parse(localStorage.getItem("chats"));
-  const userId = JSON.parse(localStorage.getItem("user"))._id;
+  const { user } = React.useContext(UserContext);
+
+  const chatroomIds = user.chats.map((chatroom) => chatroom._id);
+  const userId = user._id;
   
   const [sidebarLoading , setSidebarLoading] = useState(true);
   const [sidebarChats, setSidebarChats] = useState([]);

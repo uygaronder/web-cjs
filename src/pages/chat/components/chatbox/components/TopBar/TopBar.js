@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useState, useRef } from 'react';
 
+import { deleteChatroom } from '../../../../../../api/chat.api';
+
 import "./css/TopBar.css";
 
 import More from "../../../../../../shared/assets/svg/more-vertical.svg";
@@ -76,6 +78,16 @@ const TopBar = ({ chatroom, chatSocket }) => {
     ? `${typingUsers.length > 1 ? 'Several people are typing...' : 'Someone is typing...'}`
     : showInfoMessage ? 'Click here for more info' : '';
 
+    const handleDeleteChatroom = () => {
+        deleteChatroom(chatroom._id)
+            .then(() => {
+                window.location.href = '/';
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
     return (
         <div className="top-bar">
             <div className="top-bar-info">
@@ -99,7 +111,7 @@ const TopBar = ({ chatroom, chatSocket }) => {
                 </button>
                 <div className={`top-bar-menu ${topBarMenuOpen ? 'open' : ''}`}>
                     <p className="top-bar-menu-item">Leave Chat</p>
-                    <p className="top-bar-menu-item">Delete Chat</p>
+                    <p className="top-bar-menu-item" onClick={handleDeleteChatroom}>Delete Chat</p>
                 </div>
             </div>
         </div>

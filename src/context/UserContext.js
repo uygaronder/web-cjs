@@ -11,15 +11,12 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         userSocket.on('connect', () => {
-            console.log('User socket connected');
             userSocket.emit('requestUserUpdate');
         });
 
         userSocket.on('userUpdated', (updatedUserData) => {
             setUser(updatedUserData);
             localStorage.setItem('user', JSON.stringify(updatedUserData));
-
-            console.log('User updated:', updatedUserData);
         });
 
         return () => {
