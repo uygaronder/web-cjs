@@ -28,9 +28,6 @@ const Chatbox = () => {
         chatSocket.emit('joinRoom', chatroomID);
 
         chatSocket.on('receiveMessage', (message) => {
-            console.log('Received message:', message);
-            console.log('Chatroom ID:', chatroomID);
-
             if (message.chatroom === chatroomID) {
                 setMessages((prevMessages) => [...prevMessages, message]);
             }

@@ -7,10 +7,11 @@ import CreateRoom from '../../../shared/assets/svg/plus.svg';
 
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 
-import { createChatroom, getPublicChatrooms } from '../../../api/chat.api';
+import { createChatroom, getPublicChatrooms, joinPublicChatroom } from '../../../api/chat.api';
+import { UserContext } from '../../../context/UserContext';
 
 const NewChatRoom = ( { closePrompt, type } ) => {
-    // type is either 'newChat' or 'findChat'
+    const { user } = React.useContext(UserContext);
 
     const roomPublicitySwitchRef = React.createRef();
     const publicRoomSearchRef = React.createRef();
@@ -103,6 +104,16 @@ const NewChatRoom = ( { closePrompt, type } ) => {
     const handlePrivateRoomMenuToggle = (e) => {
         console.log('private room menu toggle');
     }
+
+    const handleJoinPublicRoom = (roomId) => {
+        joinPublicChatroom(roomId, user._id)
+            .then(data => {
+                window.location.href = `/c/${data._id}`;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
     
     return (
         <>
@@ -176,7 +187,7 @@ const NewChatRoom = ( { closePrompt, type } ) => {
                                     <p>No rooms found by that name</p> 
                                     : publicRooms.map((room, index) => {
                                         return (
-                                            <div className='publicRoom' key={index}>
+                                            <div className='publicRoom' key={index} >
                                                 <div className='publicRoomInfo'>
                                                     <img src='https://via.placeholder.com/150' alt='Room Avatar' />
                                                     <div className='publicRoomInfoText'>
@@ -184,7 +195,7 @@ const NewChatRoom = ( { closePrompt, type } ) => {
                                                         <p>{room.userCount + " users"}</p>
                                                     </div>
                                                     {}
-                                                    <button onClick={() => {}}>Join</button>
+                                                    <button onClick={() => handleJoinPublicRoom(room.id)}>Join</button>
                                                 </div>
                                             </div>
                                         );
