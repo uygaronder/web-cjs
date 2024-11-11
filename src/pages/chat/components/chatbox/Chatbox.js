@@ -28,9 +28,6 @@ const Chatbox = () => {
         chatSocket.emit('joinRoom', chatroomID);
 
         chatSocket.on('receiveMessage', (message) => {
-            console.log('Received message:', message);
-            console.log('Chatroom ID:', chatroomID);
-
             if (message.chatroom === chatroomID) {
                 setMessages((prevMessages) => [...prevMessages, message]);
             }
@@ -67,6 +64,8 @@ const Chatbox = () => {
             })
             .catch(error => {
                 console.error(error);
+                // if the chatroom does not exist in the users chats, redirect to the main chat page
+                navigate('/c/chat', { replace: true });
             });
     }, [chatroomID]);
 

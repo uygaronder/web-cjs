@@ -8,9 +8,11 @@ import CreateRoom from '../../../shared/assets/svg/plus.svg';
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 
 import { createChatroom, getPublicChatrooms } from '../../../api/chat.api';
+import { useNavigate } from 'react-router-dom';
 
-const NewChatRoom = ( { closePrompt, type } ) => {
+const NewChatRoom = ( { closeMenu, closePrompt, type } ) => {
     // type is either 'newChat' or 'findChat'
+    const Navigate = useNavigate();
 
     const roomPublicitySwitchRef = React.createRef();
     const publicRoomSearchRef = React.createRef();
@@ -66,14 +68,12 @@ const NewChatRoom = ( { closePrompt, type } ) => {
         
         createChatroom(chatroomInfo, creatorId)
             .then(data => {
-            setLoading(false);
-            closePrompt();
-            // might be wrong, to be tested
-            window.location.href = `/c/${data._id}`;
-            // ------------------------------
+                setLoading(false);
+                closePrompt();
+                closeMenu();
+                Navigate('/c/chat/' + data._id);
             })
             .catch(error => {
-            console.error(error);
             setLoading(false);
             });
     };

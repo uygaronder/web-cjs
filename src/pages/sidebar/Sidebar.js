@@ -68,7 +68,7 @@ const Sidebar = () => {
     return () => {
       chatSocket.off("newMessageNotification");
     };
-  }, [userId]);
+  }, [user]);
   
   const clearSearchBar = () => {
     inputRef.current.value = "";
@@ -110,13 +110,19 @@ const Sidebar = () => {
     clearSearchBar();
   };
 
+  const handleCloseMenu = () => {
+    sidebarMenuButtonRef.current.classList.remove("active");
+    sidebarMenuRef.current.classList.remove("active");
+  };
+
+
   return (
     <div className="sidebar">
       <div className="newChatContainer" ref={newChatContainerRef}>
-        <NewChatRoom type={"newRoom"} closePrompt={closeNewChatPrompt} />
+        <NewChatRoom type={"newRoom"} closeMenu={handleCloseMenu} closePrompt={closeNewChatPrompt} />
       </div>
       <div className="newChatContainer" ref={findChatContainerRef}>
-        <NewChatRoom type={"findRoom"} closePrompt={closeFindChatPrompt} />
+        <NewChatRoom type={"findRoom"} closeMenu={handleCloseMenu} closePrompt={closeFindChatPrompt} />
       </div>
       <div className="sidebar-header">
         <div className="sidebar-avatar">

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { deleteChatroom } from '../../../../../../api/chat.api';
 
@@ -8,6 +9,8 @@ import "./css/TopBar.css";
 import More from "../../../../../../shared/assets/svg/more-vertical.svg";
 
 const TopBar = ({ chatroom, chatSocket }) => {
+    const navigate = useNavigate();
+
     const [typingUsers, setTypingUsers] = useState([]);
     const [showInfoMessage, setShowInfoMessage] = useState(true);
     const [topBarMenuOpen, setTopBarMenuOpen] = useState(false);
@@ -78,10 +81,11 @@ const TopBar = ({ chatroom, chatSocket }) => {
     ? `${typingUsers.length > 1 ? 'Several people are typing...' : 'Someone is typing...'}`
     : showInfoMessage ? 'Click here for more info' : '';
 
+    // there is a bug on deleting chatroom where if the user switches the chatroom and deletes the chatroom, it might delete the wrong chatroom
     const handleDeleteChatroom = () => {
         deleteChatroom(chatroom._id)
             .then(() => {
-                window.location.href = '/';
+                navigate('/c/chat');
             })
             .catch(error => {
                 console.error(error);

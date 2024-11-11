@@ -11,6 +11,7 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         userSocket.on('connect', () => {
+            console.log('User socket connected');
             userSocket.emit('requestUserUpdate');
         });
 

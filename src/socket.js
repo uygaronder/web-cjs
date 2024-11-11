@@ -16,8 +16,6 @@ const chatSocket = io(chatSocketString, {
 const notificationSocketString = process.env.REACT_APP_API_URL + '/notification';
 const notificationSocket = io(notificationSocketString, { query: { userId } });
 
-notificationSocket.emit('initializeUser', user);
-
 const userSocketString = process.env.REACT_APP_API_URL + '/user';
 const userSocket = io(userSocketString, { query: { userId } });
 
