@@ -106,7 +106,7 @@ const NewChatRoom = ( { closePrompt, type, closeMenu } ) => {
     }
 
     const handleJoinPublicRoom = (roomId) => {
-        joinPublicChatroom(roomId, user._id)
+        joinPublicChatroom(roomId, user._id, user.username)
             .then(data => {
                 window.location.href = `/c/${data._id}`;
             })

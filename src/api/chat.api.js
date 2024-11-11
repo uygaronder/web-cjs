@@ -90,13 +90,13 @@ export async function deleteChatroom(chatroomID) {
     return response.json();
 }
 
-export async function joinPublicChatroom(chatroomID, userID) {
+export async function joinPublicChatroom(chatroomID, userID, username) {
     const response = await fetch(`${CHAT_API_URL}/joinPublicChatroom`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ chatroomID, userID }),
+        body: JSON.stringify({ chatroomID, userID, username }),
     });
     return response.json();
 }
