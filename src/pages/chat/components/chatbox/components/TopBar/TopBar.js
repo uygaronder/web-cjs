@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { deleteChatroom } from '../../../../../../api/chat.api';
+import { deleteChatroom, leaveChatroom } from '../../../../../../api/chat.api';
+import { UserContext } from '../../../../../../context/UserContext';
 
 import "./css/TopBar.css";
 
@@ -17,6 +18,8 @@ const TopBar = ({ chatroom, chatSocket }) => {
     const menuRef = useRef(null);
 
     const DISTANCE_THRESHOLD = 400;
+
+    const { user } = React.useContext(UserContext);
 
     useEffect(() => {
         resetInfoMessageTimeout();
@@ -92,6 +95,18 @@ const TopBar = ({ chatroom, chatSocket }) => {
             });
     };
 
+    const handleLeaveChatroom = () => {
+        console.log('leaving chatroom');
+
+        leaveChatroom(chatroom._id, user._id, user.username)
+            .then(() => {
+                window.location.href = '/';
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
     return (
         <div className="top-bar">
             <div className="top-bar-info">
@@ -114,7 +129,7 @@ const TopBar = ({ chatroom, chatSocket }) => {
                     <img src={More} alt="More" />
                 </button>
                 <div className={`top-bar-menu ${topBarMenuOpen ? 'open' : ''}`}>
-                    <p className="top-bar-menu-item">Leave Chat</p>
+                    <p className="top-bar-menu-item" onClick={handleLeaveChatroom}>Leave Chat</p>
                     <p className="top-bar-menu-item" onClick={handleDeleteChatroom}>Delete Chat</p>
                 </div>
             </div>

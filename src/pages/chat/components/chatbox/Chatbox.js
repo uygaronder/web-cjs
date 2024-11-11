@@ -21,7 +21,6 @@ const Chatbox = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        
     }, [user]);
 
     useEffect(() => {
@@ -33,18 +32,24 @@ const Chatbox = () => {
             }
         });
 
+        chatSocket.on('userJoinedRecieve', (data) => {
+            console.log(data);
+        });
+
+        chatSocket.on('userLeftRecieve', (data) => {
+            console.log(data);
+        });
+
         return () => {
             chatSocket.emit('leave', chatroomID);
             chatSocket.off('receiveMessage');
         };
-
     }, [chatroomID]);
 
 
     useEffect(() => {
         getChatroom(chatroomID, user._id)
             .then(data => {
-                // there is a rerender if the user changes the chat url to another chatroom
                 if (data.error){
                     navigate('/c/chat', { replace: true });
                     return;

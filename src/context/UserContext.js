@@ -18,6 +18,7 @@ export const UserProvider = ({ children }) => {
         userSocket.on('userUpdated', (updatedUserData) => {
             setUser(updatedUserData);
             localStorage.setItem('user', JSON.stringify(updatedUserData));
+            console.log('User updated');
         });
 
         return () => {
@@ -34,8 +35,12 @@ export const UserProvider = ({ children }) => {
         setUser(newUserData);
     };
 
+    const requestUserData = () => {
+        userSocket.emit('requestUserUpdate');
+    };
+
     return (
-        <UserContext.Provider value={{ user, updateUser }}>
+        <UserContext.Provider value={{ user, updateUser, requestUserData }}>
             {children}
         </UserContext.Provider>
     );
