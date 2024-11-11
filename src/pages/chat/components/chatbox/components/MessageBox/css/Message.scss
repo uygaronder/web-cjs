@@ -75,6 +75,21 @@
     }
 }
 
+.message.system{
+    background-color: var(--background-light);
+    color: var(--text-color-muted);
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: var(--font-small);
+    margin: 10px auto;
+    width: fit-content;
+    max-width: 80%;
+    text-align: center;
+    &:before {
+        border: transparent;
+    }
+}
+
 .message:hover .more-options{
     display: flex;
     opacity: 1;

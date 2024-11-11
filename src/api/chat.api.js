@@ -2,7 +2,6 @@
 const API_URL = process.env.REACT_APP_API_URL;
 const CHAT_API_URL = `${API_URL}/chat`;
 
-
 // functions
 export async function sendMessage(messageInfo) {
     const response = await fetch(`${CHAT_API_URL}/newMessage`, {
@@ -98,6 +97,17 @@ export async function joinPublicChatroom(chatroomID, userID) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ chatroomID, userID }),
+    });
+    return response.json();
+}
+
+export async function leaveChatroom(chatroomID, userID, username) {
+    const response = await fetch(`${CHAT_API_URL}/leaveChatroom`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ chatroomID, userID, username }),
     });
     return response.json();
 }
