@@ -51,7 +51,6 @@ const MessageBox = ({ chatroom ,messages }) => {
     const renderMessagesWithDateHeaders = () => {
         const formattedMessages = [];
         let lastMessageDate = null;
-        console.log(messages);
 
         messages.forEach((message, index) => {
             let messageDate;
@@ -75,7 +74,6 @@ const MessageBox = ({ chatroom ,messages }) => {
                 );
                 lastMessageDate = messageDate;
             }
-
             if (message.type === 'system') {
                 formattedMessages.push(
                     <Message
@@ -86,6 +84,13 @@ const MessageBox = ({ chatroom ,messages }) => {
                 );
                 return;
             }
+            const displayUsername = () => {
+                if (index === 0) return true;
+                if (messages[index - 1].user == undefined) return true;
+                if (message.user._id !== messages[index - 1].user._id) return true;
+                return false;
+            };
+
             formattedMessages.push(
                 <Message
                     key={message._id || index}
@@ -94,7 +99,7 @@ const MessageBox = ({ chatroom ,messages }) => {
                     time={format(messageDate, 'p')}
                     id={message._id}
                     username={message.user.username}
-                    displayUsername={index === 0 || message.user._id !== messages[index - 1].user._id}
+                    displayUsername={displayUsername()}
                     type={message.type}
                 />
             );

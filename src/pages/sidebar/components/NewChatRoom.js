@@ -7,20 +7,13 @@ import CreateRoom from '../../../shared/assets/svg/plus.svg';
 
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 
-<<<<<<< HEAD
-import { createChatroom, getPublicChatrooms } from '../../../api/chat.api';
-import { useNavigate } from 'react-router-dom';
-
-const NewChatRoom = ( { closeMenu, closePrompt, type } ) => {
-    // type is either 'newChat' or 'findChat'
-    const Navigate = useNavigate();
-=======
 import { createChatroom, getPublicChatrooms, joinPublicChatroom } from '../../../api/chat.api';
 import { UserContext } from '../../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
-const NewChatRoom = ( { closePrompt, type } ) => {
+const NewChatRoom = ( { closePrompt, type, closeMenu } ) => {
     const { user } = React.useContext(UserContext);
->>>>>>> 8212d8cbe1ec119c37f9273fd38412ddd91f1cfc
+    const Navigate = useNavigate();
 
     const roomPublicitySwitchRef = React.createRef();
     const publicRoomSearchRef = React.createRef();
