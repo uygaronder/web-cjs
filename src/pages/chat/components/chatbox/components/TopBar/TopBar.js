@@ -95,12 +95,15 @@ const TopBar = ({ chatroom, chatSocket }) => {
             });
     };
 
-    const handleLeaveChatroom = () => {
-        console.log('leaving chatroom');
+    const handleLeaveChatroomSocket = () => {
+        chatSocket.emit('userLeftChatroom', {chatroomID: chatroom._id,userID: user._id,username: user.username });
+    };
 
+    const handleLeaveChatroom = () => {
         leaveChatroom(chatroom._id, user._id, user.username)
             .then(() => {
-                window.location.href = '/';
+                handleLeaveChatroomSocket();
+                window.location.href = '/c';
             })
             .catch(error => {
                 console.error(error);

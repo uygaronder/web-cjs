@@ -32,12 +32,17 @@ const Chatbox = () => {
             }
         });
 
-        chatSocket.on('userJoinedRecieve', (data) => {
-            console.log(data);
+        chatSocket.on('userJoinedReceive', (message) => {
+            if (message.chatroom === chatroomID) {
+                setMessages((prevMessages) => [...prevMessages, message]);
+            }
         });
 
-        chatSocket.on('userLeftRecieve', (data) => {
-            console.log(data);
+        chatSocket.on('userLeftReceive', (message) => {
+            console.log("user left: ",message);
+            if (message.chatroom === chatroomID) {
+                setMessages((prevMessages) => [...prevMessages, message]);
+            }
         });
 
         return () => {
