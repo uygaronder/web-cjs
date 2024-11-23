@@ -11,6 +11,8 @@ import { createChatroom, getPublicChatrooms, joinPublicChatroom } from '../../..
 import { UserContext } from '../../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
+import { chatSocket } from '../..//../socket';
+
 const NewChatRoom = ( { closePrompt, type, closeMenu } ) => {
     const { user } = React.useContext(UserContext);
     const Navigate = useNavigate();
@@ -108,7 +110,9 @@ const NewChatRoom = ( { closePrompt, type, closeMenu } ) => {
     const handleJoinPublicRoom = (roomId) => {
         joinPublicChatroom(roomId, user._id, user.username)
             .then(data => {
-                window.location.href = `/c/${data._id}`;
+                // emit socket event to join room
+                chatSocket.emit('userJoinedChatroom', {chatroomID: roomId,userID: user._id,username: user.username });
+                window.location.href = `/c/chat/${roomId}`;
             })
             .catch(error => {
                 console.error(error);

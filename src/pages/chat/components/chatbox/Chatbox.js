@@ -33,13 +33,13 @@ const Chatbox = () => {
         });
 
         chatSocket.on('userJoinedReceive', (message) => {
+            console.log("user joined: ",message);
             if (message.chatroom === chatroomID) {
                 setMessages((prevMessages) => [...prevMessages, message]);
             }
         });
 
         chatSocket.on('userLeftReceive', (message) => {
-            console.log("user left: ",message);
             if (message.chatroom === chatroomID) {
                 setMessages((prevMessages) => [...prevMessages, message]);
             }
@@ -49,7 +49,7 @@ const Chatbox = () => {
             chatSocket.emit('leave', chatroomID);
             chatSocket.off('receiveMessage');
         };
-    }, [chatroomID]);
+    }, []);
 
 
     useEffect(() => {
