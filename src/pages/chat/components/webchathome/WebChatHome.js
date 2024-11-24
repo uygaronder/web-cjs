@@ -15,9 +15,11 @@ const WebChatHome = () => {
         <div className='webChatHome'>
             <p>No Chat Active</p>
             <div className='webChatHomeOptions'>
-                <button onClick={() => handleStartNewChat}>Start New Chat</button>
-                <span>Or</span>
-                <button onClick={() => handleJoinChat}>Join Chat</button>
+                {/*
+                    <button onClick={() => handleStartNewChat}>Start New Chat</button>
+                    <span>Or</span>
+                    <button onClick={() => handleJoinChat}>Join Chat</button>"
+                */}
             </div>
         </div>
     );
