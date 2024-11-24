@@ -4,7 +4,7 @@
   height: 100%;
   background-color: var(--background-dark);
   z-index: 100;
-  transition: 0.5s;
+  transition: 0.1s;
   overflow-y: auto;
   border-right: 1px solid var(--border-color);
   position: relative;
@@ -62,7 +62,7 @@
   background-color: var(--text-color);
   margin: 5px 0;
   border-radius: 5px;
-  transition: 0.05s ease;
+  transition: 0.1s ease;
 }
 .sidebar .sidebar-header .sidebar-header-buttons .sidebar-menu-button.active .menu-bar:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
@@ -125,7 +125,7 @@
   background-color: var(--background-dark);
   padding: var(--padding) var(--padding-large);
   border-top: 1px solid var(--border-color);
-  transition: 0.05s ease;
+  transition: 0.1s ease;
 }
 .sidebar .sidebar-body .sidebar-menu-container.active {
   left: 0;
