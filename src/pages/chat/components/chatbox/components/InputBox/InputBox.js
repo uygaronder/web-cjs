@@ -5,6 +5,7 @@ import { chatSocket } from '../../../../../../socket';
 
 import './css/InputBox.css';
 import X from '../../../../../../shared/assets/svg/x.svg';
+import Paperclip from '../../../../../../shared/assets/svg/paperclip.svg';
 
 
 const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
@@ -67,6 +68,10 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
         }, 3000);
     };
 
+    const handleSelectFileFromDevice = () => {
+        console.log('Select file from device');
+    };
+
     return (
         <form className='inputbox'>
             {isReplyingTo && (
@@ -81,7 +86,15 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
             </div>
             )}
             <div className='inputs'>
-                <input type='text' placeholder='Type a message' value={inputValue} onChange={handleChange} />
+                <div className='text-input-container'>
+                    <input type='text' placeholder='Type a message' value={inputValue} onChange={handleChange} />
+                    <span className='text-input-file-share-menu-button'>
+                        <img src={Paperclip} alt='Attach File' />
+                        <span className='text-input-file-share-menu'>
+                            <span className='text-input-file-share-menu-item' onClick={() => {handleSelectFileFromDevice()}}>Attach Image</span>
+                        </span>
+                    </span>
+                </div>
                 <button type="submit" onClick={handleSendMessage}>Send</button>
             </div>
         </form>

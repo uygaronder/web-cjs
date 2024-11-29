@@ -5,29 +5,62 @@
     padding: 5px 10px;
     background-color: transparent;
     input{
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        outline: none;
-        margin-right: 20px;
-        background-color: var(--background-light);
-        color: var(--text-color);
-        position: relative;
-        font-family: var(--font-family);
-        &:before{
-            content: '';
-            position: absolute;
-            width: 0px;
-            height: 0px;
-            border-bottom: 10px solid transparent;
-            border-right: 10px solid var(--background-light);
-            left: -10px;
-            top: 0px;
-        }
+        
     }
     .inputs{
         display: flex;
+        .text-input-container{
+            width: 100%;
+            border-radius: 5px;
+            margin-right: 20px;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            position: relative;
+            font-family: var(--font-family);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            input{
+                flex-grow: 1;
+                display: flex;
+                outline: none;
+                border: none;
+                background-color: transparent;
+                height: 100%;
+                min-height: 50px;
+                color: var(--text-color);
+                font-size: 100%;
+            }
+            .text-input-file-share-menu-button{
+                position: relative;
+                img{
+                    filter: var(--svg-filter);
+                    cursor: pointer;
+                }
+                .text-input-file-share-menu{
+                    position: absolute;
+                    background-color: var(--background-light);
+                    border-radius: 5px;
+                    padding: 10px;
+                    z-index: 100;
+                    bottom: 170%;
+                    right: -10px;
+                    .text-input-file-share-menu-item{
+                        display: flex;
+                        align-items: center;
+                        padding: 5px;
+                        cursor: pointer;
+                        img{
+                            filter: var(--svg-filter);
+                            margin-right: 10px;
+                        }
+                        &:hover{
+                            background-color: var(--background-light-hover);
+                        }
+                    }
+                }
+            }
+        }
         button{
             background-color: var(--button-background);
             color: white;
