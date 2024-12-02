@@ -45,11 +45,14 @@
                     z-index: 100;
                     bottom: 170%;
                     right: -10px;
+                    box-shadow: var(--box-shadow);
+                    min-width: 150px;
                     .text-input-file-share-menu-item{
                         display: flex;
                         align-items: center;
                         padding: 5px;
                         cursor: pointer;
+                        white-space: nowrap;
                         img{
                             filter: var(--svg-filter);
                             margin-right: 10px;
@@ -57,6 +60,9 @@
                         &:hover{
                             background-color: var(--background-light-hover);
                         }
+                    }
+                    &.text-input-file-share-menu-closed{
+                        display: none;
                     }
                 }
             }

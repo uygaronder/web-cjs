@@ -17,6 +17,27 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
     const [isTyping, setIsTyping] = useState(false);
     const typingTimeout = useRef(null);
 
+    // for menu auto close
+    React.useEffect(() => {
+        document.addEventListener('mousemove', handleMouseMove);
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+
+    const handleMouseMove = (e) => {
+        const menu = document.querySelector('.text-input-file-share-menu');
+        const rect = menu.getBoundingClientRect();
+        const distance = Math.sqrt(
+            Math.pow(e.clientX - (rect.left + rect.width / 2), 2) +
+            Math.pow(e.clientY - (rect.top + rect.height / 2), 2)
+        );
+        if(menu.classList.contains('text-input-file-share-menu-closed')) return;
+        if (distance > 250) {
+            menu.classList.add('text-input-file-share-menu-closed');
+        }
+    };
+
     const handleChange = (e) => {
         setInputValue(e.target.value);
         handleTyping();
@@ -72,6 +93,11 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
         console.log('Select file from device');
     };
 
+    const openMenu = () => {
+        const menu = document.querySelector('.text-input-file-share-menu');
+        menu.classList.toggle('text-input-file-share-menu-closed');
+    }
+
     return (
         <form className='inputbox'>
             {isReplyingTo && (
@@ -89,8 +115,8 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
                 <div className='text-input-container'>
                     <input type='text' placeholder='Type a message' value={inputValue} onChange={handleChange} />
                     <span className='text-input-file-share-menu-button'>
-                        <img src={Paperclip} alt='Attach File' />
-                        <span className='text-input-file-share-menu'>
+                        <img src={Paperclip} alt='Attach File' onClick={() => openMenu()}/>
+                        <span className='text-input-file-share-menu text-input-file-share-menu-closed'>
                             <span className='text-input-file-share-menu-item' onClick={() => {handleSelectFileFromDevice()}}>Attach Image</span>
                         </span>
                     </span>

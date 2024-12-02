@@ -46,12 +46,15 @@
   z-index: 100;
   bottom: 170%;
   right: -10px;
+  box-shadow: var(--box-shadow);
+  min-width: 150px;
 }
 .inputbox .inputs .text-input-container .text-input-file-share-menu-button .text-input-file-share-menu .text-input-file-share-menu-item {
   display: flex;
   align-items: center;
   padding: 5px;
   cursor: pointer;
+  white-space: nowrap;
 }
 .inputbox .inputs .text-input-container .text-input-file-share-menu-button .text-input-file-share-menu .text-input-file-share-menu-item img {
   filter: var(--svg-filter);
@@ -59,6 +62,9 @@
 }
 .inputbox .inputs .text-input-container .text-input-file-share-menu-button .text-input-file-share-menu .text-input-file-share-menu-item:hover {
   background-color: var(--background-light-hover);
+}
+.inputbox .inputs .text-input-container .text-input-file-share-menu-button .text-input-file-share-menu.text-input-file-share-menu-closed {
+  display: none;
 }
 .inputbox .inputs button {
   background-color: var(--button-background);
