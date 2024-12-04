@@ -13,9 +13,58 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
 
     isReplyingTo = isReplyingTo;
     const [inputValue, setInputValue] = useState('');
-    const isAReply = isReplyingTo ? true : false;
     const [isTyping, setIsTyping] = useState(false);
+    const isAReply = isReplyingTo ? true : false;
     const typingTimeout = useRef(null);
+    const fileInputRef = useRef(null);
+
+    /* for drag and drop file, not implemented yet
+    const [isDragging, setIsDragging] = useState(false);
+
+    const handleDragEnter = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(true);
+    };
+    
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+    
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+    };
+    
+    const handleDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+    
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            console.log('Dropped file:', file);
+            // Call your uploadFile function here
+        }
+    };
+
+    */
+
+    const handleSelectFileFromDevice = () => {
+        fileInputRef.current.click(); // Programmatically trigger the file input
+    };
+
+    const handleFileInput = (e) => {
+        e.preventDefault();
+        const file = e.target.files[0];
+        if (file) {
+            console.log('Selected file:', file);
+            // Call your uploadFile function here
+        }
+    };
+
 
     // for menu auto close
     React.useEffect(() => {
@@ -89,10 +138,6 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
         }, 3000);
     };
 
-    const handleSelectFileFromDevice = () => {
-        console.log('Select file from device');
-    };
-
     const openMenu = () => {
         const menu = document.querySelector('.text-input-file-share-menu');
         menu.classList.toggle('text-input-file-share-menu-closed');
@@ -117,11 +162,31 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
                     <span className='text-input-file-share-menu-button'>
                         <img src={Paperclip} alt='Attach File' onClick={() => openMenu()}/>
                         <span className='text-input-file-share-menu text-input-file-share-menu-closed'>
-                            <span className='text-input-file-share-menu-item' onClick={() => {handleSelectFileFromDevice()}}>Attach Image</span>
+                            <span className='text-input-file-share-menu-item' onClick={() => {handleSelectFileFromDevice()}}>
+                            <p>Upload File</p>
+
+                            <input
+                                type="file"
+                                style={{ display: 'none' }}
+                                ref={fileInputRef}
+                                onChange={handleFileInput}
+                            />
+                            </span>
                         </span>
                     </span>
                 </div>
                 <button type="submit" onClick={handleSendMessage}>Send</button>
+            </div>
+            <div className='file-input-preview-container'>
+                <div className='file-input-preview-highlighted-file-container'>
+                    <div className='file-input-preview-highlighted-file'>
+                        <img src={Paperclip} alt='File' />
+                        <p>file-name.jpg</p>
+                        <button type='button'>
+                            <img src={X} alt='Close' />
+                        </button>
+                    </div>
+                </div>
             </div>
         </form>
     );
