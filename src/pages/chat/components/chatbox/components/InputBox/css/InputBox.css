@@ -105,4 +105,86 @@
 }
 .inputbox .replybox button:hover {
   color: var(--accent-color);
+}
+.inputbox .file-input-preview-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3137254902);
+}
+.inputbox .file-input-preview-container .file-input-preview {
+  display: flex;
+  background-color: var(--background-light);
+  min-width: 300px;
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  display: flex;
+  flex-direction: column;
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-upper-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-upper-options .file-input-preview-cancel-button {
+  width: -moz-max-content;
+  width: max-content;
+  padding: 5px;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-upper-options .file-input-preview-cancel-button:hover {
+  background-color: rgba(102, 102, 102, 0.2274509804);
+  border-radius: 50%;
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-upper-options .file-input-preview-cancel-button img {
+  padding-top: 2px;
+  filter: var(--svg-filter);
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-upper-options p {
+  padding-left: 25px;
+  width: 100%;
+  font-size: 120%;
+  font-weight: 600;
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-highlighted-file-container {
+  margin: var(--padding-large) 0;
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-highlighted-file-container img {
+  max-width: 200px;
+  max-height: 300px;
+  border-radius: var(--border-radius);
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-message-text {
+  display: flex;
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-message-text input {
+  background-color: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: 100%;
+  width: 100%;
+  outline: none;
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-message-text button {
+  background-color: var(--button-background);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: 0.2s ease;
+}
+.inputbox .file-input-preview-container .file-input-preview .file-input-preview-message-text button:hover {
+  background-color: var(--button-background-hover);
 }/*# sourceMappingURL=InputBox.css.map */

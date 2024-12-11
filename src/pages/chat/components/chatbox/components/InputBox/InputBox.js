@@ -6,6 +6,8 @@ import { chatSocket } from '../../../../../../socket';
 import './css/InputBox.css';
 import X from '../../../../../../shared/assets/svg/x.svg';
 import Paperclip from '../../../../../../shared/assets/svg/paperclip.svg';
+import Menu from '../../../../../../shared/assets/svg/menu.svg';
+import { set } from 'date-fns';
 
 
 const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
@@ -14,6 +16,9 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
     isReplyingTo = isReplyingTo;
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
+    const [isFilePreviewOpen, setIsFilePreviewOpen] = useState(false);
+    const [filePreview, setFilePreview] = useState(null);
+    const [files, setFiles] = useState([]);
     const isAReply = isReplyingTo ? true : false;
     const typingTimeout = useRef(null);
     const fileInputRef = useRef(null);
@@ -56,12 +61,31 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
         fileInputRef.current.click(); // Programmatically trigger the file input
     };
 
+    // this is bugged, it uses filePreview it should use the files array and display all the files
     const handleFileInput = (e) => {
         e.preventDefault();
-        const file = e.target.files[0];
-        if (file) {
-            console.log('Selected file:', file);
-            // Call your uploadFile function here
+        const selectedFiles = Array.from(e.target.files);
+        if (selectedFiles.length > 0) {
+            const fileReaders = selectedFiles.map(file => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                resolve({ file, preview: e.target.result });
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+            });
+
+            Promise.all(fileReaders)
+            .then(filesWithPreviews => {
+                setFiles([...files, ...filesWithPreviews.map(f => f.file)]);
+                setFilePreview(filesWithPreviews[0].preview);
+                setIsFilePreviewOpen(true);
+            })
+            .catch(error => {
+                console.error("Error reading files: ", error);
+            });
         }
     };
 
@@ -143,6 +167,11 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
         menu.classList.toggle('text-input-file-share-menu-closed');
     }
 
+    const closeFileMenu = () => {
+        setIsFilePreviewOpen(false)
+        setFiles([]);
+    }
+
     return (
         <form className='inputbox'>
             {isReplyingTo && (
@@ -168,6 +197,7 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
                             <input
                                 type="file"
                                 style={{ display: 'none' }}
+                                multiple
                                 ref={fileInputRef}
                                 onChange={handleFileInput}
                             />
@@ -177,17 +207,35 @@ const InputBox = ({chatroom, isReplyingTo, replyID, onSendMessage}) => {
                 </div>
                 <button type="submit" onClick={handleSendMessage}>Send</button>
             </div>
-            <div className='file-input-preview-container'>
-                <div className='file-input-preview-highlighted-file-container'>
-                    <div className='file-input-preview-highlighted-file'>
-                        <img src={Paperclip} alt='File' />
-                        <p>file-name.jpg</p>
-                        <button type='button'>
-                            <img src={X} alt='Close' />
-                        </button>
+            {
+                isFilePreviewOpen && (
+                    <div className='file-input-preview-container'>
+                        <div className='file-input-preview'>
+                            <div className='file-input-preview-upper-options'>
+                                <div className='file-input-preview-cancel-button' onClick={() => closeFileMenu()}>
+                                    <img src={X} alt='Close' />
+                                </div>
+                                <p>Send File{files.length>1 && "s"}</p>
+                                <img src={Menu} alt='More' />
+                            </div>
+                            <div className='file-input-preview-highlighted-file-container'>
+                                <div className='file-input-preview-highlighted-files'>
+                                    {files.map((file, index) => (
+                                        <div className='file-input-preview-highlighted-file' key={index}>
+                                            <img src={filePreview} alt='File Preview' />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className='file-input-preview-message-text'>
+                                <input type='text' placeholder='Set Caption' />
+                                <button type='button' onClick={() => setIsFilePreviewOpen(false)}>Send</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                )
+            }
+            
         </form>
     );
 };

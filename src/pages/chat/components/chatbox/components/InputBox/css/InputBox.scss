@@ -108,4 +108,86 @@
             }
         }
     }
+
+    .file-input-preview-container{
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        z-index: 100;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        background-color: #00000050;
+        .file-input-preview{
+            display: flex;
+            background-color: var(--background-light);
+            min-width: 300px;
+            border-radius: var(--border-radius);
+            padding: var(--padding);
+            display: flex;
+            flex-direction: column;
+            .file-input-preview-upper-options{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .file-input-preview-cancel-button{
+                    width: max-content;
+                    padding: 5px;
+                    transition:.2s ease;
+                    &:hover{
+                        background-color: #6666663a;
+                        border-radius: 50%;
+                    }
+                    img{
+                        padding-top: 2px;
+                        filter: var(--svg-filter);
+                    }
+                    cursor: pointer;
+                }
+                p{
+                    padding-left: 25px;
+                    width: 100%;
+                    font-size: 120%;
+                    font-weight: 600;
+                }
+            }
+            .file-input-preview-highlighted-file-container{
+                margin: var(--padding-large) 0;
+                display: flex;
+                justify-content: center;
+                max-width: 100%;
+                img{
+                    max-width: 200px;
+                    max-height: 300px;
+                    border-radius: var(--border-radius);
+                }
+            }
+            .file-input-preview-message-text{
+                display: flex;
+                input{
+                    background-color: transparent;
+                    border: none;
+                    color: var(--text-color);
+                    font-size: 100%;
+                    width: 100%;
+                    outline: none;
+                }
+                button{
+                    background-color: var(--button-background);
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-left: 10px;
+                    transition: .2s ease;
+                    &:hover{
+                        background-color: var(--button-background-hover);
+                    }
+                }
+            }
+        }
+    }
 }
