@@ -14,6 +14,7 @@ import Menu from "../../shared/assets/svg/menu.svg";
 import NewChat from "../../shared/assets/svg/new-chat.svg";
 import Search from "../../shared/assets/svg/search.svg";
 import Bell from "../../shared/assets/svg/bell.svg";
+import User from "../../shared/assets/svg/user.svg";
 
 import { UserContext } from '../../context/UserContext';
 
@@ -25,6 +26,8 @@ const Sidebar = () => {
   
   const [sidebarLoading , setSidebarLoading] = useState(true);
   const [sidebarChats, setSidebarChats] = useState([]);
+  const [displayedSidebarChats, setDisplayedSidebarChats] = useState([]);
+  const  [searchMode, setSearchMode] = useState("chatrooms"); // "chatrooms", "users" or "inactive" for when the menu is open
 
   const newChatContainerRef = React.createRef();
   const findChatContainerRef = React.createRef();
@@ -42,6 +45,7 @@ const Sidebar = () => {
       .then(data => {
         setSidebarLoading(false);
         setSidebarChats(data);
+        setDisplayedSidebarChats(data);
   
         const chatroomIds = data.map((chatroom) => chatroom._id);
         notificationSocket.emit("listenForUpdates", chatroomIds);
@@ -77,6 +81,25 @@ const Sidebar = () => {
   const handleSearchBarChange = (event) => {
     // change what user is searching for taking in to account which menus are open
     const searchQuery = event.target.value;
+    console.log("Search Query:", searchQuery);
+
+    if (searchMode === "chatrooms") {
+      setDisplayedSidebarChats(handleFilterChatrooms(searchQuery));
+    } else if (searchMode === "users") {
+      // Implement user search logic here
+      console.log("Searching users:", searchQuery);
+    }
+
+  };
+
+  const handleFilterChatrooms = (query) => {
+    if (!query) {
+      return sidebarChats;
+    } else {
+      return sidebarChats.filter(chatroom => 
+        chatroom.chatroomInfo.name.toLowerCase().includes(query.toLowerCase())
+      );
+    }
   };
 
   const handleNewChatPrompt = () => {
@@ -115,6 +138,7 @@ const Sidebar = () => {
     sidebarMenuRef.current.classList.remove("active");
   };
 
+  console.log("user", user);
 
   return (
     <div className="sidebar">
@@ -125,8 +149,8 @@ const Sidebar = () => {
         <NewChatRoom type={"findRoom"} closeMenu={handleCloseMenu} closePrompt={closeFindChatPrompt} />
       </div>
       <div className="sidebar-header">
-        <div className="sidebar-avatar">
-          <img src="https://placehold.co/100x100" alt="Avatar" />
+        <div className="sidebar-avatar avatar-container">
+          {!user.settings.avatar ? <span className="default-user-icon-container"><img src={User} alt="User" className="default-user-icon" /></span> : <img src="https://placehold.co/100x100" alt="Avatar" />}
         </div>
         <div className="sidebar-header-buttons">
           <img src={Bell} alt="Notifications" />
@@ -142,15 +166,15 @@ const Sidebar = () => {
       <div className="sidebar-upper">
         <div className="sidebar-search-bar" onClick={handleSearchBarClick}>
           <img src={Search} alt="Search" />
-          <input type="text" placeholder="Search" ref={inputRef} />
+          <input type="text" placeholder="Search Chats" ref={inputRef} onChange={handleSearchBarChange} />
         </div>
       </div>
       <div className="sidebar-body">
         <div className="sidebar-menu-container" ref={sidebarMenuRef}>
           <SidebarMenu
             toggleNewGroupPage={handleNewChatPrompt}
+            toggleNewChatPage={handleNewChatPrompt}
             handleFindChatPrompt={handleFindChatPrompt}
-            handleSearchBarChange={handleSearchBarChange}
             toggleFindUsersPage={() => {}}
             toggleProfilePage={() => {}}
             toggleSettingsPage={() => {}}
@@ -158,7 +182,7 @@ const Sidebar = () => {
           />
         </div>
         <ul className="sidebar-chats">
-          {!sidebarLoading ? sidebarChats.map((chatroom) => (
+          {!sidebarLoading ? displayedSidebarChats.map((chatroom) => (
             <Link
               to={`/c/chat/${chatroom._id}`}
               className="sidebar-chat"

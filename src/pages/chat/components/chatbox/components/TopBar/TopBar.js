@@ -114,7 +114,7 @@ const TopBar = ({ chatroom, chatSocket }) => {
         <div className="top-bar">
             <div className="top-bar-info">
                 <div className="top-bar-chat-avatar">
-                    <img src="https://via.placeholder.com/150" alt="Chat Avatar" />
+                    <img src="https://placehold.co/100x100" alt="Chat Avatar" />
                 </div>
                 <div className='top-bar-info-texts'>
                     <div className="top-bar-chat-name">{chatroom.chatroomInfo.name}</div>

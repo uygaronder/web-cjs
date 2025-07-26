@@ -11,7 +11,8 @@ A minimal real-time chat app powered by WebSockets. This checklist tracks curren
   - [x] Client should **not filter out own messages** on receive
   - [x] Fix where sometimes the message displays even when the user is in a different chatroom 
 - [ ] Add logging for dropped or failed messages
-- [ ] Fix avatar display issue
+- [x] Fix chat placeholder avatar display issue
+- [ ] Only load the last 50 messages in a chatroom to improve performance
 
 ---
 
@@ -23,6 +24,12 @@ A minimal real-time chat app powered by WebSockets. This checklist tracks curren
 - [x] Display timestamps for each message
 - [x] Basic user system (username or ID)
 - [x] Join/create chat rooms (channel support)
+- [ ] Filter Chatrooms by name
+- [ ] Implement a profile page for users
+- [ ] Add user presence indicators (online/offline)
+- [ ] Implement an invite system for users to join chatrooms
+- [ ] Notify users when they are invited to a chat or chatroom
+- [ ] Allow users to customize their account and chatrooms (e.g., name, avatar)
 
 ---
 

@@ -83,6 +83,22 @@ a {
   animation: spin 1s linear infinite;
 }
 
+.default-user-icon-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  background-color: var(--background-light);
+  display: flex;
+  overflow: hidden;
+}
+.default-user-icon-container img {
+  filter: var(--svg-filter);
+  width: 100%;
+  height: 110%;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
