@@ -27,6 +27,7 @@ const Chatbox = () => {
         chatSocket.emit('joinRoom', chatroomID);
 
         chatSocket.on('receiveMessage', (message) => {
+            console.log("received message: ", message);
             if (message.chatroom === chatroomID) {
                 setMessages((prevMessages) => [...prevMessages, message]);
             }
@@ -49,7 +50,7 @@ const Chatbox = () => {
             chatSocket.emit('leave', chatroomID);
             chatSocket.off('receiveMessage');
         };
-    }, []);
+    }, [chatroomID]);
 
 
     useEffect(() => {
