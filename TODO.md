@@ -12,8 +12,10 @@ A minimal real-time chat app powered by WebSockets. This checklist tracks curren
   - [x] Fix where sometimes the message displays even when the user is in a different chatroom 
 - [ ] Add logging for dropped or failed messages
 - [x] Fix chat placeholder avatar display issue
-- [ ] Only load the last 50 messages in a chatroom to improve performance
-
+- [x] Only load the last 50 messages in a chatroom to improve performance
+  - [x] Load more messages as the user scrolls up
+- [ ] There Seems to be an issue where when chatroom changes, there can be some message(when the new chatroom is small and dont cover the full screen presumably) boxes from the previus chat not getting cleared properly
+- [ ] When loading older messages the app treats like them like they are new messages, showing the "new message" indicator and scrolling to the bottom, which is not the expected behavior
 ---
 
 ## ⚙️ Core Features
@@ -24,7 +26,7 @@ A minimal real-time chat app powered by WebSockets. This checklist tracks curren
 - [x] Display timestamps for each message
 - [x] Basic user system (username or ID)
 - [x] Join/create chat rooms (channel support)
-- [ ] Filter Chatrooms by name
+- [x] Filter Chatrooms by name
 - [ ] Implement a profile page for users
 - [ ] Add user presence indicators (online/offline)
 - [ ] Implement an invite system for users to join chatrooms

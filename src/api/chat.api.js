@@ -69,8 +69,9 @@ export async function getChatroom(chatroomID, userID) {
     return response.json();
 }
 
-export async function getMessages(chatroomID) {
-    const response = await fetch(`${CHAT_API_URL}/getMessages?chatroomID=${chatroomID}`, {
+export async function getMessages(chatroomID, { skip = 0 , limit = 5 } = {}) {
+    console.log("Fetching messages for chatroom: ", chatroomID, " with skip: ", skip, " and limit: ", limit);
+    const response = await fetch(`${CHAT_API_URL}/getMessages?chatroomID=${chatroomID}&skip=${skip}&limit=${limit}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

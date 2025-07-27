@@ -8,11 +8,13 @@ import "./css/MessageBox.css";
 
 // I've noticed that whatsapp uses the loaded last message quickly load the last message on chatroom change and then load the rest of the messages
 
-const MessageBox = ({ chatroom ,messages }) => {
+const MessageBox = ({ chatroom ,messages, onScrollTop, loadingOlderMessages }) => {
     const messageEndRef = useRef(null);
     const messageBoxRef = useRef(null);
     const [isAtBottom, setIsAtBottom] = useState(true);
     const [showNewMessageIndicator, setShowNewMessageIndicator] = useState(false);
+    const previousScrollHeightRef = useRef(0);
+    const [shouldRestoreScroll, setShouldRestoreScroll] = useState(false);
 
     const scrollToBottom = () => {
         messageEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -27,14 +29,35 @@ const MessageBox = ({ chatroom ,messages }) => {
             if (atBottom) {
                 setShowNewMessageIndicator(false);
             }
+            
+            if (scrollTop === 0 && !loadingOlderMessages) {
+                previousScrollHeightRef.current = messageBoxRef.current.scrollHeight;
+                setShouldRestoreScroll(true);
+                onScrollTop();
+            }
+            
         }
     };
 
     useEffect(() => {
+        if (loadingOlderMessages || shouldRestoreScroll) return; // skip during 
+
         if (isAtBottom) {
             scrollToBottom();
         } else {
             setShowNewMessageIndicator(true);
+        }
+    }, [messages, loadingOlderMessages, shouldRestoreScroll]);
+
+    useEffect(() => {
+        if (shouldRestoreScroll && previousScrollHeightRef.current && messageBoxRef.current) {
+            const container = messageBoxRef.current;
+            const newScrollHeight = container.scrollHeight;
+            const delta = newScrollHeight - previousScrollHeightRef.current;
+
+            container.scrollTop = delta;
+            previousScrollHeightRef.current = 0;
+            setShouldRestoreScroll(false); // reset flag
         }
     }, [messages]);
 
